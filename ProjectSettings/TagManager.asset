@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - BaseDamageRange
   - BasePowerRange
+  - TowerDamageRange
   layers:
   - Default
   - TransparentFX
