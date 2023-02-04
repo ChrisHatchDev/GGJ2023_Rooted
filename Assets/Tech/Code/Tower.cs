@@ -20,6 +20,9 @@ public class Tower : MonoBehaviour
     public MeshRenderer Renderer;
     public Material PoweredMat;
     public Material NotPoweredMat;
+
+    public MeshRenderer DamageRangeRenderer;
+
     public Dictionary<GameObject, Enemy> EnemiesInRange = new Dictionary<GameObject, Enemy>();
     public int WeaponDamage = 5;
     public int NumEnemiesToShoot = 3;
@@ -30,14 +33,14 @@ public class Tower : MonoBehaviour
         StartCoroutine(ShootCycle());
     }
 
-    public void OnPlacement()
+    public void ShowDamageVisuals()
     {
-
+        DamageRangeRenderer.enabled = true;
     }
 
-    public void OnPickup()
+    public void HideDamageVisuals()
     {
-
+        DamageRangeRenderer.enabled = false;
     }
 
     public void AddEnemeyInRange(Enemy enemy)
