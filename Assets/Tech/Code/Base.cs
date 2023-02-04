@@ -13,7 +13,6 @@ public class BaseEditor: Editor
         Base _target = target as Base;
         GUILayout.Label($"Towers in Range (${_target.TowersInRange.Count})");
     }
-
 }
 
 public class Base : MonoBehaviour
@@ -37,10 +36,16 @@ public class Base : MonoBehaviour
     public void Update(){
         if(this.Health <= 0){
             Debug.Log("it's dead jim");
-            Destroy(gameObject);
+            DestroyBase();
+            return;
         }
 
         HealthbarFill.fillAmount = (Health / MaxHealth);
+    }
+
+    private void DestroyBase()
+    {
+        Destroy(gameObject);
     }
 
     public void AddTowerInRange(Tower tower)
