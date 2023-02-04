@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
     public void EnterTowerToPlaceMode()
     {
         PlacingATowerMode = true;
+        TestPositionCube.SetActive(true);
     }
     
     public void PlaceNewTurret(Vector3 position)
@@ -39,6 +40,8 @@ public class Player : MonoBehaviour
         Tower newTower = Instantiate(TowerPrefab, BaseInScene.transform.position, Quaternion.identity).GetComponent<Tower>();
         newTower.Agent.destination = position;
 
+        newTower.HideDamageVisuals();
+
         if (InitialNumberOfTowers > 1)
         {
             InitialNumberOfTowers -= 1;
@@ -46,6 +49,7 @@ public class Player : MonoBehaviour
         else
         {
             PlacingATowerMode = false;
+            TestPositionCube.SetActive(false);
             StartGame();
         }
     }
@@ -117,6 +121,7 @@ public class Player : MonoBehaviour
             TargetTower = null;
             tower.Agent.SetDestination(currentPointedPos);
             towerPickedUp = false;
+            TestPositionCube.SetActive(false);
             
             Debug.Log("Placed Turret");
         }
@@ -130,5 +135,6 @@ public class Player : MonoBehaviour
     {
         Debug.Log("PICKED UP TOWER");
         towerPickedUp = true;
+        TestPositionCube.SetActive(true);
     }
 }

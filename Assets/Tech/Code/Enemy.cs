@@ -11,8 +11,12 @@ public class Enemy : MonoBehaviour
     public int Health = 100;
     private bool inRange = false;
 
-    void Start(){
-        Agent.SetDestination(Target.transform.position);
+    void Start()
+    {
+        if (Target)
+        {
+            Agent.SetDestination(Target.transform.position);
+        }
 
         StartCoroutine(DamageCycle());
     }
