@@ -4,25 +4,11 @@ using UnityEngine;
 
 public class EnemySpawnPoint : MonoBehaviour
 {
-    public GameObject EnemyPrefab;
     public int wave_size = 10;
-    public double spawn_delay_s = 5.0;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-        
-    }
-
-
-    void SpawnWave(){
+    public void SpawnWave(GameObject EnemyPrefab, Base BaseBuilding){
         for(int i=0; i<wave_size; i++){
-            Instantiate(EnemyPrefab, transform.position, Quaternion.identity);
+            Enemy tmp = Instantiate(EnemyPrefab, transform.position, Quaternion.identity).GetComponent<Enemy>();
+            tmp.Target = BaseBuilding;
         }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

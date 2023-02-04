@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public double spawn_delay_s = 5.0;
+    public List<EnemySpawnPoint> ListOfSpawnPoints;
+    public GameObject EnemyPrefab;
+    public Base BaseBuilding;
     void Start()
     {
-        //InvokeRepeating("SpawnWave", 2.0f, (float)spawn_delay_s);
+        InvokeRepeating("SpawnAtRandomPoint", 2.0f, (float)spawn_delay_s);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    void SpawnAtRandomPoint(){
+        ListOfSpawnPoints[Random.Range(0, ListOfSpawnPoints.Count)].SpawnWave(EnemyPrefab, BaseBuilding);
     }
 }
