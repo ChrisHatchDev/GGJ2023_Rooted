@@ -70,8 +70,8 @@ public class Tower : MonoBehaviour
     private IEnumerator ShootCycle()
     {
         yield return new WaitForSeconds(0.5f);
-        //ShootAllEnemiesInRange();
-        ShootNEnemiesInRange(NumEnemiesToShoot);
+        ShootAllEnemiesInRange();
+        //ShootNEnemiesInRange(NumEnemiesToShoot);
         
         StartCoroutine(ShootCycle());
     }
