@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     public Base Target;
     private int attack_damage = 3;
     private int Health = 100;
+    private bool inRange = false;
 
     void Start(){
         Agent.SetDestination(Target.transform.position);
@@ -21,6 +22,12 @@ public class Enemy : MonoBehaviour
 
     }
 
+    private void OnTriggerStay(Collider other){
+        if(inRange){
+            Target.Damage(this.attack_damage);
+            this.Damage(Target.attack_damage);
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "BaseDamageRange")
@@ -28,6 +35,7 @@ public class Enemy : MonoBehaviour
             Debug.Log("ENEMY NEAR BASE");
             Target.Damage(this.attack_damage);
             this.Damage(Target.attack_damage);
+            inRange = true;
         }
     }
 
@@ -36,6 +44,7 @@ public class Enemy : MonoBehaviour
         if (other.tag == "BaseDamageRange")
         {
             //Debug.Log("ENEMY NOT NEAR BASE");
+            inRange = false;
         }
     }
     public void Damage(int damage){
