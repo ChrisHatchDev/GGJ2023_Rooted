@@ -18,10 +18,14 @@ public class Tower : MonoBehaviour
     public Material PoweredMat;
     public Material NotPoweredMat;
 
+    public Dictionary<GameObject, Enemy> EnemiesInRange = new Dictionary<GameObject, Enemy>();
+
+    public int WeaponDamage = 5;
+    
+
     private void Start()
     {
-        // Default to where the turret starts is now
-        Agent.SetDestination(transform.position);
+        StartCoroutine(ShootCycle());
     }
 
     public void OnPlacement()
@@ -34,12 +38,44 @@ public class Tower : MonoBehaviour
 
     }
 
+    public void AddEnemeyInRange(Enemy enemy)
+    {
+        if (!EnemiesInRange.ContainsKey(enemy.gameObject))
+        {
+            EnemiesInRange.TryAdd(enemy.gameObject, enemy);
+        }
+    }
+
+    public void RemoveEnemeyInRange(Enemy enemy)
+    {
+        if (EnemiesInRange.ContainsKey(enemy.gameObject))
+        {
+            EnemiesInRange.Remove(enemy.gameObject);
+        }
+    }
+
     void Update()
     {
         string statusText = Powered ? "POWERED" : "NOT POWRED";
         string movingText = Moving ? "Moving" : "Stationary";
 
         StatusText.text = $"{statusText}\n{movingText}";
+    }
+
+    private IEnumerator ShootCycle()
+    {
+        yield return new WaitForSeconds(0.5f);
+        ShootAllEnemiesInRange();
+        
+        StartCoroutine(ShootCycle());
+    }
+
+    public void ShootAllEnemiesInRange()
+    {
+        foreach (var enemeyPair in EnemiesInRange)
+        {
+            enemeyPair.Value.Damage(WeaponDamage);
+        }
     }
 
     public void SetPowerStatus(bool isPowered)
