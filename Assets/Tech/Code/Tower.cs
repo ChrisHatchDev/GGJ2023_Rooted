@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.AI;
+using System.Linq;
 
 public class Tower : MonoBehaviour
 {
@@ -19,10 +20,9 @@ public class Tower : MonoBehaviour
     public MeshRenderer Renderer;
     public Material PoweredMat;
     public Material NotPoweredMat;
-
     public Dictionary<GameObject, Enemy> EnemiesInRange = new Dictionary<GameObject, Enemy>();
-
     public int WeaponDamage = 5;
+    public int NumEnemiesToShoot = 3;
     
 
     private void Start()
@@ -67,15 +67,22 @@ public class Tower : MonoBehaviour
     private IEnumerator ShootCycle()
     {
         yield return new WaitForSeconds(0.5f);
-        ShootAllEnemiesInRange();
+        //ShootAllEnemiesInRange();
+        ShootNEnemiesInRange(NumEnemiesToShoot);
         
         StartCoroutine(ShootCycle());
     }
 
+    public void ShootNEnemiesInRange(int n){
+        List<Enemy> values = EnemiesInRange.Values.ToList();
+        Anim.SetBool("Shooting", EnemiesInRange.Count > 0);
+        for(int i =0; i<n; i++){
+            values[Random.Range(0, values.Count())].Damage(WeaponDamage);
+        }
+    }
     public void ShootAllEnemiesInRange()
     {
         Anim.SetBool("Shooting", EnemiesInRange.Count > 0);
-
         foreach (var enemeyPair in EnemiesInRange)
         {
             enemeyPair.Value.Damage(WeaponDamage);
