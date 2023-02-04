@@ -1,16 +1,20 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
+using System.Collections.Generic;
 
 public class Enemy : MonoBehaviour
 {
     public NavMeshAgent Agent;
     public Base Target;
-    private int attack_damage = 3;
+    public int attack_damage = 3;
     public int Health = 100;
     private bool inRange = false;
 
     void Start(){
         Agent.SetDestination(Target.transform.position);
+
+        StartCoroutine(DamageCycle());
     }
     void Update(){
         if(this.Health <= 0){
@@ -22,12 +26,24 @@ public class Enemy : MonoBehaviour
 
     }
 
-    private void OnTriggerStay(Collider other){
+    private IEnumerator DamageCycle()
+    {
+        yield return new WaitForSeconds(0.5f);
+
         if(inRange)
         {
             Target.Damage(this.attack_damage);
         }
+        
+        StartCoroutine(DamageCycle());
     }
+
+    // private void OnTriggerStay(Collider other){
+    //     if(inRange)
+    //     {
+    //         Target.Damage(this.attack_damage);
+    //     }
+    // }
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "BaseDamageRange")
