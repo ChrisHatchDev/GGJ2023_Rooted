@@ -61,3 +61,4 @@ crashlytics-build.properties
 
 # usersettings
 UserSettings/
+.vscode/
