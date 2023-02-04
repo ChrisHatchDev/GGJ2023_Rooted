@@ -26,7 +26,7 @@ public class Tower : MonoBehaviour
 
     public void OnPlacement()
     {
-        
+
     }
 
     public void OnPickup()
@@ -46,5 +46,26 @@ public class Tower : MonoBehaviour
     {
         Renderer.materials = new Material[]{isPowered ? PoweredMat : NotPoweredMat};
         Powered = isPowered;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "BasePowerRange")
+        {
+            Base _base = other.gameObject.GetComponentInParent<Base>();
+            _base.AddTowerInRange(this);
+            SetPowerStatus(true);
+        }   
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "BasePowerRange")
+        {
+            Base _base = other.gameObject.GetComponentInParent<Base>();
+            _base.RemoveTowerInRange(this);
+
+            SetPowerStatus(false);
+        } 
     }
 }

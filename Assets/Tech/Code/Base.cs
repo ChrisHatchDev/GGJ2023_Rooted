@@ -43,29 +43,19 @@ public class Base : MonoBehaviour
         HealthbarFill.fillAmount = (Health / MaxHealth);
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void AddTowerInRange(Tower tower)
     {
-        if (other.tag == "Tower")
+        if (!TowersInRange.ContainsKey(tower.gameObject))
         {
-            if (!TowersInRange.ContainsKey(other.gameObject))
-            {
-                Tower newTower = other.GetComponent<Tower>();
-                newTower.SetPowerStatus(true);
-                TowersInRange.TryAdd(other.gameObject, newTower);
-            }
-        }   
+            TowersInRange.TryAdd(tower.gameObject, tower);
+        }
     }
 
-    private void OnTriggerExit(Collider other)
+    public void RemoveTowerInRange(Tower tower)
     {
-        if (other.tag == "Tower")
+        if (TowersInRange.ContainsKey(tower.gameObject))
         {
-            Debug.Log("Tower is Leaving base!");
-            if (TowersInRange.ContainsKey(other.gameObject))
-            {
-                TowersInRange.GetValueOrDefault(other.gameObject).SetPowerStatus(false);
-                TowersInRange.Remove(other.gameObject);
-            }
-        } 
+            TowersInRange.Remove(tower.gameObject);
+        }
     }
 }
