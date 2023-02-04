@@ -88,7 +88,7 @@ public class Tower : MonoBehaviour
         Anim.SetBool("Shooting", EnemiesInRange.Count > 0);
         foreach (var enemeyPair in EnemiesInRange)
         {
-            enemeyPair.Value.Damage(WeaponDamage);
+            enemeyPair.Value.Damage(Random.Range(3,WeaponDamage));
         }
     }
 
