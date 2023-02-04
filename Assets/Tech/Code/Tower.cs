@@ -26,7 +26,7 @@ public class Tower : MonoBehaviour
 
     public void OnPlacement()
     {
-
+        
     }
 
     public void OnPickup()
