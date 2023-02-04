@@ -77,10 +77,10 @@ public class Tower : MonoBehaviour
     }
 
     public void ShootNEnemiesInRange(int n){
-        List<Enemy> values = EnemiesInRange.Values.ToList();
         Anim.SetBool("Shooting", EnemiesInRange.Count > 0);
         for(int i =0; i<n; i++){
-            values[Random.Range(0, values.Count())].Damage(WeaponDamage);
+            List<Enemy> values = EnemiesInRange.Values.ToList();
+            values[Random.Range(0, values.Count)].Damage(WeaponDamage);
         }
     }
     public void ShootAllEnemiesInRange()
