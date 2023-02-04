@@ -20,12 +20,14 @@ public class BaseEditor: Editor
 public class Base : MonoBehaviour
 {
     // 1-10. 10 Being full health
-    public int Health = 10;
-
+    public int Health = 1000;
     public Dictionary<GameObject, Tower> TowersInRange = new Dictionary<GameObject, Tower>();
-
     public void Damage(int damage)
     {
+        if(this.Health <= 0){
+            Debug.Log("it's dead jim");
+            return;
+        }
         Health -= damage;
     }
 
