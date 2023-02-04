@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.UI;
 
 [CustomEditor(typeof(Base))]
 public class BaseEditor: Editor
@@ -18,9 +19,18 @@ public class BaseEditor: Editor
 public class Base : MonoBehaviour
 {
     // 1-10. 10 Being full health
-    public int Health = 1000;
+    public float MaxHealth = 1000;
+    public float Health = 1000;
     public Dictionary<GameObject, Tower> TowersInRange = new Dictionary<GameObject, Tower>();
     public int attack_damage = 5;
+
+    public Image HealthbarFill;
+
+    private void Start()
+    {
+        Health = MaxHealth;
+    }
+
     public void Damage(int damage){
         Health -= damage;
     }
@@ -29,6 +39,8 @@ public class Base : MonoBehaviour
             Debug.Log("it's dead jim");
             Destroy(gameObject);
         }
+
+        HealthbarFill.fillAmount = (Health / MaxHealth);
     }
 
     private void OnTriggerEnter(Collider other)
