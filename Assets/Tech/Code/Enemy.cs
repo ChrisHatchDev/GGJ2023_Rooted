@@ -1,18 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public NavMeshAgent Agent;
+    public Base Target;
+
     void Start()
     {
-        
+        Agent.SetDestination(Target.transform.position);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void CheckRangeToBase()
     {
-        
+
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "BaseDamageRange")
+        {
+            Debug.Log("ENEMY NEAR BASE");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "BaseDamageRange")
+        {
+            Debug.Log("ENEMY NOT NEAR BASE");
+        }
+    }
+
+
 }
