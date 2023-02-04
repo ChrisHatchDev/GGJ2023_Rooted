@@ -12,7 +12,9 @@ public class Enemy : MonoBehaviour
         Agent.SetDestination(Target.transform.position);
     }
     void Update(){
-        
+        if(this.Health <= 0){
+            Destroy(this);
+        }
     }
     public void CheckRangeToBase()
     {
@@ -25,6 +27,7 @@ public class Enemy : MonoBehaviour
         {
             //Debug.Log("ENEMY NEAR BASE");
             Target.Damage(this.attack_damage);
+            this.Damage(Target.attack_damage);
         }
     }
 
@@ -36,6 +39,6 @@ public class Enemy : MonoBehaviour
         }
     }
     public void Damage(int damage){
-
+        Health -= damage;
     }
 }
