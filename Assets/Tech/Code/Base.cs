@@ -9,9 +9,7 @@ public class BaseEditor: Editor
     private void OnInspectorGUI()
     {
         base.OnInspectorGUI();
-        
         Base _target = target as Base;
-
         GUILayout.Label($"Towers in Range (${_target.TowersInRange.Count})");
     }
 
@@ -20,13 +18,17 @@ public class BaseEditor: Editor
 public class Base : MonoBehaviour
 {
     // 1-10. 10 Being full health
-    public int Health = 10;
-
+    public int Health = 1000;
     public Dictionary<GameObject, Tower> TowersInRange = new Dictionary<GameObject, Tower>();
-
-    public void Damage(int damage)
-    {
+    public int attack_damage = 5;
+    public void Damage(int damage){
         Health -= damage;
+    }
+    public void Update(){
+        if(this.Health <= 0){
+            Debug.Log("it's dead jim");
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -37,7 +39,6 @@ public class Base : MonoBehaviour
             {
                 Tower newTower = other.GetComponent<Tower>();
                 newTower.SetPowerStatus(true);
-
                 TowersInRange.TryAdd(other.gameObject, newTower);
             }
         }   
