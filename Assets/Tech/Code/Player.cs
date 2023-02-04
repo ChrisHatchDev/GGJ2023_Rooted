@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public Base BaseInScene;
+
     public GameObject TestPositionCube;
     public LayerMask GroundMask;
     public LayerMask TowerMask;
@@ -14,9 +16,43 @@ public class Player : MonoBehaviour
     Vector3 currentPointedPos;
     public bool pointingAtGround = false;
 
+
+    public GameObject TowerPrefab;
+    public bool PlacingATowerMode;
+    public int InitialNumberOfTowers = 3;
+
     void Start()
     {
-        
+        BaseInScene = FindObjectOfType<Base>();
+        EnterTowerToPlaceMode();
+    }
+
+    public void EnterTowerToPlaceMode()
+    {
+        PlacingATowerMode = true;
+    }
+    
+    public void PlaceNewTurret(Vector3 position)
+    {
+        Debug.Log($"Place new object at this position: {position}");
+
+        Tower newTower = Instantiate(TowerPrefab, BaseInScene.transform.position, Quaternion.identity).GetComponent<Tower>();
+        newTower.Agent.destination = position;
+
+        if (InitialNumberOfTowers > 1)
+        {
+            InitialNumberOfTowers -= 1;
+        }
+        else
+        {
+            PlacingATowerMode = false;
+            StartGame();
+        }
+    }
+
+    public void StartGame()
+    {
+        // Trigger enemey spawner here
     }
 
     void Update()
@@ -53,18 +89,24 @@ public class Player : MonoBehaviour
             //Debug.Log("NOT POINTING at tower!");
         }
 
-        if (Input.GetMouseButtonDown(0) && TargetTower)
+        if (Input.GetMouseButtonDown(0))
         {
-            if (towerPickedUp)
+            if (PlacingATowerMode && pointingAtGround)
             {
-                PlaceTurret(TargetTower);
+                PlaceNewTurret(currentPointedPos);
             }
-
-            if (towerPickedUp == false && TargetTower)
+            else
             {
-                PickupTurret(TargetTower);
-            }
+                if (towerPickedUp && TargetTower)
+                {
+                    PlaceTurret(TargetTower);
+                }
 
+                if (towerPickedUp == false && TargetTower)
+                {
+                    PickupTurret(TargetTower);
+                }
+            }
         }
     }
 

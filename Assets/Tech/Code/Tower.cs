@@ -6,6 +6,8 @@ using UnityEngine.AI;
 
 public class Tower : MonoBehaviour
 {
+    public Animator Anim;
+
     public TMPro.TMP_Text StatusText;
     public bool Powered = false;
 
@@ -72,6 +74,8 @@ public class Tower : MonoBehaviour
 
     public void ShootAllEnemiesInRange()
     {
+        Anim.SetBool("Shooting", EnemiesInRange.Count > 0);
+
         foreach (var enemeyPair in EnemiesInRange)
         {
             enemeyPair.Value.Damage(WeaponDamage);
