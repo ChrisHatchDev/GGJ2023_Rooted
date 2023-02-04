@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     }
     void Update(){
         if(this.Health <= 0){
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
     public void CheckRangeToBase()
@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
     {
         if (other.tag == "BaseDamageRange")
         {
-            //Debug.Log("ENEMY NEAR BASE");
+            Debug.Log("ENEMY NEAR BASE");
             Target.Damage(this.attack_damage);
             this.Damage(Target.attack_damage);
         }

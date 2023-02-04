@@ -27,7 +27,7 @@ public class Base : MonoBehaviour
     public void Update(){
         if(this.Health <= 0){
             Debug.Log("it's dead jim");
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 
