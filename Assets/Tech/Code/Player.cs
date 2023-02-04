@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
         else if (towerPickedUp == false)
         {
             TargetTower = null;
-            Debug.Log("NOT POINTING at tower!");
+            //Debug.Log("NOT POINTING at tower!");
         }
 
         if (Input.GetMouseButtonDown(0) && TargetTower)
