@@ -24,7 +24,8 @@ public class Tower : IPowerSource
     public Transform LineStartPoint;
     public Transform LineEndPoint; // Should be the other tower
     public IPowerSource PowerSource;  // This should be a union between towers and bases because those will be the only power sources
-    
+    public Dictionary<GameObject, Tower> TowersInRange = new Dictionary<GameObject, Tower>();
+
 
     private void Start()
     {
@@ -136,6 +137,21 @@ public class Tower : IPowerSource
     //     SetPowerStatusVisuals();
     // }
 
+    public void AddTowerInRange(Tower tower)
+    {
+        if (!TowersInRange.ContainsKey(tower.gameObject))
+        {
+            TowersInRange.TryAdd(tower.gameObject, tower);
+        }
+    }
+
+    public void RemoveTowerInRange(Tower tower)
+    {
+        if (TowersInRange.ContainsKey(tower.gameObject))
+        {
+            TowersInRange.Remove(tower.gameObject);
+        }
+    }
     public override PowerSourceType GetPowerType()
     {
         return PowerType;
