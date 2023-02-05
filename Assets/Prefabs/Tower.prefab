@@ -402,10 +402,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20f61972ffbea4d8f8fd670d5eae7f41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HasPower: 0
+  PowerType: 0
   Anim: {fileID: 101701134}
   StatusText: {fileID: 1269525849}
-  PoweredByTower: 0
-  PoweredByBase: 0
   Agent: {fileID: 7368201837856510635}
   Moving: 0
   Renderer: {fileID: 8124354819763304239}
@@ -414,6 +414,10 @@ MonoBehaviour:
   DamageRangeRenderer: {fileID: 167977799}
   WeaponDamage: 5
   NumEnemiesToShoot: 3
+  LineController: {fileID: 0}
+  LineStartPoint: {fileID: 0}
+  LineEndPoint: {fileID: 0}
+  PowerSource: {fileID: 0}
 --- !u!195 &7368201837856510635
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -868,6 +872,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3396928562600946101, guid: a3ca08126770b4b45b560b6e08de349b,
+        type: 3}
+      propertyPath: m_TagString
+      value: PowerRanger
+      objectReference: {fileID: 0}
     - target: {fileID: 3396928562600946103, guid: a3ca08126770b4b45b560b6e08de349b,
         type: 3}
       propertyPath: m_IsTrigger
@@ -892,49 +901,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2244471625810946982}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1181492761
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3459230203733246483}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8c0601c46a9149d8b5bc1ce52e8b7d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TagToCheck: BasePowerRange
-  OnEnter:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 356193407890306561}
-        m_TargetAssemblyTypeName: Tower, Assembly-CSharp
-        m_MethodName: OnBasePowerEnter
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnExit:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 356193407890306561}
-        m_TargetAssemblyTypeName: Tower, Assembly-CSharp
-        m_MethodName: OnBasePowerExit
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1181492762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -947,13 +913,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8c0601c46a9149d8b5bc1ce52e8b7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TagToCheck: TowerPowerRange
+  TagToCheck: PowerRanger
   OnEnter:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 356193407890306561}
         m_TargetAssemblyTypeName: Tower, Assembly-CSharp
-        m_MethodName: OnTowerPowerEnter
+        m_MethodName: OnPowerSourceEnter
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -968,8 +934,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 356193407890306561}
         m_TargetAssemblyTypeName: Tower, Assembly-CSharp
-        m_MethodName: OnTowerPowerExit
-        m_Mode: 1
+        m_MethodName: OnPowerSourceExit
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

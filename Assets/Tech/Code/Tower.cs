@@ -8,31 +8,23 @@ using System.Linq;
 public class Tower : IPowerSource
 {
     public Animator Anim;
-
     public TMPro.TMP_Text StatusText;
-    // public bool PoweredByTower = false;
-    // public bool PoweredByBase = false;
-
     [Space(10)]
     public NavMeshAgent Agent;
     public bool Moving = false;
-
     [Header("Material Logic")]
     public SkinnedMeshRenderer Renderer;
     public Material PoweredMat;
     public Material NotPoweredMat;
-
     public MeshRenderer DamageRangeRenderer;
-
     public Dictionary<GameObject, Enemy> EnemiesInRange = new Dictionary<GameObject, Enemy>();
     public int WeaponDamage = 5;
     public int NumEnemiesToShoot = 3;
-    
     public TowerLineController LineController;
     public Transform LineStartPoint;
     public Transform LineEndPoint; // Should be the other tower
-    public GameObject PowerSource;  // This should be a union between towers and bases because those will be the only power sources
-    public bool HasPower = false;
+    public IPowerSource PowerSource;  // This should be a union between towers and bases because those will be the only power sources
+    
 
     private void Start()
     {
@@ -82,8 +74,6 @@ public class Tower : IPowerSource
     {
         yield return new WaitForSeconds(0.5f);
         ShootAllEnemiesInRange();
-        //ShootNEnemiesInRange(NumEnemiesToShoot);
-        
         StartCoroutine(ShootCycle());
     }
 
@@ -113,34 +103,38 @@ public class Tower : IPowerSource
         Renderer.materials = new Material[]{HasPower ? PoweredMat : NotPoweredMat};
     }
 
-    public void OnTowerPowerEnter(Collider other)
+    public void OnPowerSourceEnter(Collider other)
     {
-        HasPower = true;
+        Debug.Log("OnTowerPowerEnter");
+        PowerSource = other.gameObject.GetComponentInParent<IPowerSource>();
+        HasPower = PowerSource.HasPower;  // maybe this needs to be checked on update to handle when a child tower gets cutoff down the line
         SetPowerStatusVisuals();
     }
 
-    public void OnTowerPowerExit()
+    public void OnPowerSourceExit(Collider other)
     {
-        HasPower = false;
+        Debug.Log("OnTowerPowerExit");
+        HasPower = false;  // maybe this should be set to PowerSource.HasPower but I'm really not sure what the move is here
+        PowerSource = null;  // I'm not sure if this event means that the power has actually been cut off
         SetPowerStatusVisuals();
     }
 
-    public void OnBasePowerEnter(Collider other)
-    {
-        HasPower = true;
-        Base _base = other.gameObject.GetComponentInParent<Base>();
-        _base.AddTowerInRange(this);
-        SetPowerStatusVisuals();
-    }
+    // public void OnBasePowerEnter(Collider other)
+    // {
+    //     HasPower = true;
+    //     Base _base = other.gameObject.GetComponentInParent<Base>();
+    //     _base.AddTowerInRange(this);
+    //     SetPowerStatusVisuals();
+    // }
 
-    public void OnBasePowerExit(Collider other)
-    {
-        Base _base = other.gameObject.GetComponentInParent<Base>();
-        _base.RemoveTowerInRange(this);
+    // public void OnBasePowerExit(Collider other)
+    // {
+    //     Base _base = other.gameObject.GetComponentInParent<Base>();
+    //     _base.RemoveTowerInRange(this);
 
-        HasPower = false;
-        SetPowerStatusVisuals();
-    }
+    //     HasPower = false;
+    //     SetPowerStatusVisuals();
+    // }
 
     public override PowerSourceType GetPowerType()
     {

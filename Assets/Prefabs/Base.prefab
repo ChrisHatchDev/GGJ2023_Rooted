@@ -390,7 +390,7 @@ GameObject:
   - component: {fileID: 554631186}
   m_Layer: 2
   m_Name: Power Range Collider
-  m_TagString: BasePowerRange
+  m_TagString: PowerRanger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -523,10 +523,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9431e3dc1b9834889a3f72d0f08c4ab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HasPower: 0
+  PowerType: 0
   MaxHealth: 1000
   Health: 1000
   attack_damage: 5
   HealthbarFill: {fileID: 366649199}
+  ListOfTowerLines: []
 --- !u!54 &6847218619517138315
 Rigidbody:
   m_ObjectHideFlags: 0
