@@ -10,8 +10,8 @@ public class Tower : IPowerSource
     public Animator Anim;
 
     public TMPro.TMP_Text StatusText;
-    public bool PoweredByTower = false;
-    public bool PoweredByBase = false;
+    // public bool PoweredByTower = false;
+    // public bool PoweredByBase = false;
 
     [Space(10)]
     public NavMeshAgent Agent;
@@ -31,6 +31,8 @@ public class Tower : IPowerSource
     public TowerLineController LineController;
     public Transform LineStartPoint;
     public Transform LineEndPoint; // Should be the other tower
+    public GameObject PowerSource;  // This should be a union between towers and bases because those will be the only power sources
+    public bool HasPower = false;
 
     private void Start()
     {
@@ -65,7 +67,7 @@ public class Tower : IPowerSource
 
     void Update()
     {
-        string statusText = (PoweredByTower || PoweredByBase) ? "POWERED" : "NOT POWRED";
+        string statusText = HasPower ? "POWERED" : "NOT POWRED";
         string movingText = Moving ? "Moving" : "Stationary";
 
         StatusText.text = $"{statusText}\n{movingText}";
@@ -103,31 +105,29 @@ public class Tower : IPowerSource
 
     public void SetPowerStatusVisuals()
     {
-        Renderer.materials = new Material[]{(PoweredByTower || PoweredByBase) ? PoweredMat : NotPoweredMat};
+        Renderer.materials = new Material[]{HasPower ? PoweredMat : NotPoweredMat};
     }
 
     public void SetPoweredByTower(bool poweredByTower, bool poweredByBase)
     {
-        Renderer.materials = new Material[]{(PoweredByTower || PoweredByBase) ? PoweredMat : NotPoweredMat};
-        PoweredByBase = poweredByBase;
-        PoweredByTower = poweredByTower;
+        Renderer.materials = new Material[]{HasPower ? PoweredMat : NotPoweredMat};
     }
 
     public void OnTowerPowerEnter(Collider other)
     {
-        PoweredByTower = true;
+        HasPower = true;
         SetPowerStatusVisuals();
     }
 
     public void OnTowerPowerExit()
     {
-        PoweredByTower = false;
+        HasPower = false;
         SetPowerStatusVisuals();
     }
 
     public void OnBasePowerEnter(Collider other)
     {
-        PoweredByBase = true;
+        HasPower = true;
         Base _base = other.gameObject.GetComponentInParent<Base>();
         _base.AddTowerInRange(this);
         SetPowerStatusVisuals();
@@ -138,7 +138,7 @@ public class Tower : IPowerSource
         Base _base = other.gameObject.GetComponentInParent<Base>();
         _base.RemoveTowerInRange(this);
 
-        PoweredByBase = false;
+        HasPower = false;
         SetPowerStatusVisuals();
     }
 
