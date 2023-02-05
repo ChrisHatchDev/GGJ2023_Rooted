@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 public class EnemySpawnPoint : MonoBehaviour
 {
-    public int wave_size = 10;
     public List<Enemy> activeWave = new List<Enemy>();
 
     public bool WaveHasDied ()
@@ -14,22 +13,21 @@ public class EnemySpawnPoint : MonoBehaviour
         {
             if (item != null)
                 waveIsDead = false;
-            
         }
 
         return waveIsDead;
     }
 
-    public void SpawnWave(GameObject EnemyPrefab, Base BaseBuilding)
+    public void SpawnWave(GameObject EnemyPrefab, Base BaseBuilding, Vector2 waveSize)
     {
         activeWave.Clear();
 
-        for(int i=0; i < wave_size + Random.Range(0, 10); i++)
+        for(int i=0; i < Random.Range(waveSize.x, waveSize.y); i++)
         {
-            Enemy tmp = Instantiate(EnemyPrefab, transform.position, Quaternion.identity).GetComponent<Enemy>();
-            tmp.Target = BaseBuilding;
+            Enemy newEnemy = Instantiate(EnemyPrefab, transform.position, Quaternion.identity).GetComponent<Enemy>();
+            newEnemy.Target = BaseBuilding;
 
-            activeWave.Add(tmp);
+            activeWave.Add(newEnemy);
         }
     }
 }

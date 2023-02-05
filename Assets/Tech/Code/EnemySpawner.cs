@@ -35,8 +35,55 @@ public class EnemySpawner : MonoBehaviour
 
         CurrentWave += 1;
 
-        currentSpawnPoint = ListOfSpawnPoints[Random.Range(0, ListOfSpawnPoints.Count)];
-        currentSpawnPoint.SpawnWave(EnemyPrefab, BaseBuilding);
+        // X, Lowbound, Y highbound, Z number of locations to spawn from
+        Vector3 waveData = Vector3.zero;
+
+        switch (CurrentWave)
+        {
+            case 1 or 2 or 3:
+                waveData = new Vector3(8, 15, 1);
+            break;
+
+            case 4 or 5 or 6 or 7:
+                waveData = new Vector3(8, 15, 2);
+            break;
+
+            case 8 or 9 or 10 or 11:
+                waveData = new Vector3(12, 18, 2);
+            break;
+
+            case 12 or 13 or 14 or 15:
+                waveData = new Vector3(8, 14, 3);
+            break;
+
+            case >= 15:
+                waveData = new Vector3(10, 30, 4);
+            break;
+            
+            default:
+                // waveData = new Vector3(8, 15, 1);
+            break;
+        }
+
+        // waveData = new Vector3(8, 15, 3);
+        // Debug.Log($"Wave data z {waveData.z}");
+
+        List<int> usedSpawnedPoints = new List<int>();
+
+        for (int i = 0; i < waveData.z; i++)
+        {
+            int targetSpawnPoint = Random.Range(0, ListOfSpawnPoints.Count);
+
+            if (usedSpawnedPoints.Contains(i))
+            {
+                targetSpawnPoint = Random.Range(0, ListOfSpawnPoints.Count);
+            }
+
+            usedSpawnedPoints.Add(targetSpawnPoint);
+
+            currentSpawnPoint = ListOfSpawnPoints[targetSpawnPoint];
+            currentSpawnPoint.SpawnWave(EnemyPrefab, BaseBuilding, waveData); 
+        }
 
         StartCoroutine(WaitToSpawnNextWave());
     }

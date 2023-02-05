@@ -128,7 +128,7 @@ public class Player : MonoBehaviour
             tower.OnPlaced(currentPointedPos);
             TestPositionCube.SetActive(false);
             
-            Debug.Log("Placed Turret");
+            // Debug.Log("Placed Turret");
 
             // HIDE all power ranges when in NOT in pickup mode
             foreach (var item in FindObjectsOfType<Tower>())
@@ -145,7 +145,7 @@ public class Player : MonoBehaviour
 
     public void PickupTower(Tower tower)
     {
-        Debug.Log("PICKED UP TOWER");
+        // Debug.Log("PICKED UP TOWER");
         towerPickedUp = true;
         tower.OnPickUp();
 
