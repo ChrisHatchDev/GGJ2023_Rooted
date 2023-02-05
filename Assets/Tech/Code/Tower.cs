@@ -28,6 +28,9 @@ public class Tower : MonoBehaviour
     public int WeaponDamage = 5;
     public int NumEnemiesToShoot = 3;
     
+    public TowerLineController LineController;
+    public Transform LineStartPoint;
+    public Transform LineEndPoint; // Should be the other tower
 
     private void Start()
     {
@@ -66,6 +69,11 @@ public class Tower : MonoBehaviour
         string movingText = Moving ? "Moving" : "Stationary";
 
         StatusText.text = $"{statusText}\n{movingText}";
+
+        if (LineController)
+        {
+            LineController.SetLinePoints(LineStartPoint.transform.position, LineEndPoint.transform.position);
+        }
     }
 
     private IEnumerator ShootCycle()
