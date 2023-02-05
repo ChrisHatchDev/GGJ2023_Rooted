@@ -199,7 +199,8 @@ public class Tower : IPowerSource
         } else if(seen.Contains(ps)){
             return false;
         }
-        return HasValidPower(ps.PowerSource, new List<IPowerSource>());
+        seen.Add(ps);
+        return HasValidPower(ps.PowerSource, seen);
     }
 
     public void OnPowerSourceEnter(Collider other)
