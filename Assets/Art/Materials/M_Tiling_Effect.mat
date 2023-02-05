@@ -116,7 +116,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _Edge_Fade_On: 1
-    - _Emissive_Multiply: 2
+    - _Emissive_Multiply: 1
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0

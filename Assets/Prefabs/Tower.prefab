@@ -576,6 +576,7 @@ MonoBehaviour:
   NotPoweredMat: {fileID: 2100000, guid: c9eb18d80825f6a4e9e029ff89747654, type: 2}
   DamageRangeRenderer: {fileID: 1382853187292619421}
   PowerRangeRenderer: {fileID: 1382853188170611930}
+  UnderGlow: {fileID: 7359606484619204924}
   WeaponDamage: 5
   NumEnemiesToShoot: 3
   LineController: {fileID: 637200427283626353}
@@ -1181,6 +1182,12 @@ PrefabInstance:
 --- !u!4 &949658055114446725 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7805584764511753371, guid: fb81b19854d4301478dce92ab89b5653,
+    type: 3}
+  m_PrefabInstance: {fileID: 7025295481916080926}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7359606484619204924 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 530384747745008162, guid: fb81b19854d4301478dce92ab89b5653,
     type: 3}
   m_PrefabInstance: {fileID: 7025295481916080926}
   m_PrefabAsset: {fileID: 0}

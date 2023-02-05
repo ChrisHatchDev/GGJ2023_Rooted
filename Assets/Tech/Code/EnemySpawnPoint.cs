@@ -20,7 +20,10 @@ public class EnemySpawnPoint : MonoBehaviour
 
     public void SpawnWave(GameObject EnemyPrefab, Base BaseBuilding, Vector2 waveSize)
     {
-        activeWave.Clear();
+        if (WaveHasDied() == true)
+        {
+            activeWave.Clear();
+        }
 
         for(int i=0; i < Random.Range(waveSize.x, waveSize.y); i++)
         {

@@ -19,6 +19,7 @@ public class Tower : IPowerSource
     public Material NotPoweredMat;
     public MeshRenderer DamageRangeRenderer;
     public MeshRenderer PowerRangeRenderer;
+    public MeshRenderer UnderGlow;
 
     public Dictionary<GameObject, Enemy> EnemiesInRange = new Dictionary<GameObject, Enemy>();
     public int WeaponDamage = 5;
@@ -187,6 +188,7 @@ public class Tower : IPowerSource
     public void SetPowerStatusVisuals()
     {
         Renderer.materials = new Material[]{PowerSource ? PoweredMat : NotPoweredMat};
+        UnderGlow.enabled = PowerSource;
     }
 
 
