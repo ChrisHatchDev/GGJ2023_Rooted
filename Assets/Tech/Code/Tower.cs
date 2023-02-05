@@ -63,11 +63,12 @@ public class Tower : IPowerSource
 
         StatusText.text = $"{statusText}\n{movingText}";
 
-        // if (LineController)
-        // {
+        if (PowerSource)
+        {
+            Debug.Log(PowerSource.LineConnectionPoint);
             Debug.Log("we drawing the line controller bruh");
-            LineController.SetLinePoints(transform.position, PowerSource.transform.position);
-        // }
+            LineController.SetLinePoints(LineConnectionPoint.position, PowerSource.LineConnectionPoint.transform.position);
+        }
     }
 
     private IEnumerator ShootCycle()
