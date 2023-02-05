@@ -1847,8 +1847,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -6.100006}
-  m_SizeDelta: {x: 339.8, y: 234.5}
+  m_AnchoredPosition: {x: 0, y: -17}
+  m_SizeDelta: {x: 339.8, y: 278.7169}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3724087603545924974
 CanvasRenderer:
@@ -1882,17 +1882,21 @@ MonoBehaviour:
 
 
     Rules: The base is your power source for
-    towers. If a tower isn''t connected to the base either directly or by daisy chaining
-    off other towers. Then the tower will not be able to defend/fire its guns.
+    the towers. If a tower isn''t connected to the base either directly or by daisy
+    chaining off other towers, then the tower will not be able to defend/fire its
+    guns.
 
 
     Controls:
 
-    -
-    Click to place the towers. (Place 3 to start game)
+    - Left click to place the towers.
 
-    - Click a placed tower
-    to "select" it. Then click again somewhere else on the map to move the tower.'
+    - Left click
+    a placed tower to "select" it. Then left click again somewhere else on the map
+    to move the tower. Right click to cancel move action.
+
+    - WASD or arrow keys
+    control the rotation of the camera'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1996,8 +2000,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2.7139, y: -7.0345}
-  m_SizeDelta: {x: 345.23, y: 245.2329}
+  m_AnchoredPosition: {x: -6.0296, y: -20}
+  m_SizeDelta: {x: 357.2892, y: 281.4104}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2741718383846939793
 CanvasRenderer:
@@ -2195,7 +2199,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 60.899994}
+  m_AnchoredPosition: {x: 0, y: 40}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &888001994511004986
