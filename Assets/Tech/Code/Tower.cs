@@ -28,6 +28,9 @@ public class Tower : IPowerSource
     public Dictionary<GameObject, IPowerSource> PowerSourcesInRange = new Dictionary<GameObject, IPowerSource>();
     private bool _recentlyMoved;
 
+    public Transform TorsoTransform;
+    public Enemy LookAtTarget;
+
     private void Start()
     {
         StartCoroutine(ShootCycle());
@@ -58,6 +61,7 @@ public class Tower : IPowerSource
         if (!EnemiesInRange.ContainsKey(enemy.gameObject))
         {
             EnemiesInRange.TryAdd(enemy.gameObject, enemy);
+            LookAtTarget = enemy;
         }
     }
 
@@ -67,19 +71,34 @@ public class Tower : IPowerSource
         {
             EnemiesInRange.Remove(enemy.gameObject);
         }
+
+        if (EnemiesInRange.Count == 0)
+        {
+            LookAtTarget = null;
+        }
     }
 
     void Update()
     {
         HasPower = HasValidPower();
 
-
         string statusText = HasPower ? "POWERED" : "NOT POWRED";
         string movingText = Moving ? "Moving" : "Stationary";
 
         StatusText.text = $"{statusText}\n{movingText}";
 
-        if (HasPower)
+        if (_recentlyMoved == false && Agent.enabled && Agent.remainingDistance <= Agent.stoppingDistance + 0.05f)
+        {
+            Agent.enabled = false;
+            NavObstacle.enabled = true;
+            Moving = false;
+
+            Anim.SetTrigger("Sit");
+        }
+
+        SetPowerStatusVisuals();
+
+        if (HasPower && PowerSource)
         {
             Debug.Log("we have a valid powersource");
             LineController.SetLinePoints(LineConnectionPoint.position, PowerSource.LineConnectionPoint.transform.position);
@@ -90,18 +109,23 @@ public class Tower : IPowerSource
             LineController.Hide();
         }
 
-        if (_recentlyMoved == false && Agent.enabled && Agent.remainingDistance < 0.1f)
+        if (LookAtTarget && HasPower && !Moving)
         {
-            Agent.enabled = false;
-            NavObstacle.enabled = true;
+            TorsoTransform.LookAt(LookAtTarget.transform.position);
+            TorsoTransform.transform.rotation = Quaternion.Euler(new Vector3(0, TorsoTransform.rotation.eulerAngles.y, TorsoTransform.rotation.eulerAngles.z));
         }
 
-        SetPowerStatusVisuals();
+        Anim.SetBool("Shooting", EnemiesInRange.Count > 0 && !Moving && HasPower && LookAtTarget);
     }
 
     public void OnPickUp()
     {
         ShowPowerRangeVisuals();
+
+        if (!Moving)
+        {
+            Anim.SetTrigger("GetUp");
+        }
     }
 
     public void OnPlaced(Vector3 placedPos)
@@ -110,6 +134,8 @@ public class Tower : IPowerSource
 
         NavObstacle.enabled = false;
         Agent.enabled = true;
+        Moving = true;
+
         Agent.SetDestination(placedPos);
         HidePowerRangeVisuals();
 
@@ -131,18 +157,10 @@ public class Tower : IPowerSource
         StartCoroutine(ShootCycle());
     }
 
-    public void ShootNEnemiesInRange(int n){
-        Anim.SetBool("Shooting", EnemiesInRange.Count > 0);
-        for(int i =0; i<n; i++){
-            List<Enemy> values = EnemiesInRange.Values.ToList();
-            values[Random.Range(0, values.Count)].Damage(WeaponDamage);
-        }
-    }
     public void ShootAllEnemiesInRange()
     {
-        if(HasPower)
+        if(HasPower && !Moving)
         {
-            Anim.SetBool("Shooting", EnemiesInRange.Count > 0);
             foreach (var enemeyPair in EnemiesInRange)
             {
                 enemeyPair.Value.Damage(Random.Range(3,WeaponDamage));
@@ -164,7 +182,7 @@ public class Tower : IPowerSource
     {
         foreach (KeyValuePair<GameObject, IPowerSource> item in PowerSourcesInRange)
         {
-            if (item.Value.HasPower)
+            if (item.Key != null && item.Value.HasPower)
             {
                 PowerSource = item.Value;
                 return true;
@@ -206,4 +224,15 @@ public class Tower : IPowerSource
     {
         return PowerType;
     }
+
+    // public void ShootNEnemiesInRange(int n){
+    //     if(HasPower)
+    //     {
+    //         Anim.SetBool("Shooting", EnemiesInRange.Count > 0);
+    //         for(int i =0; i<n; i++){
+    //             List<Enemy> values = EnemiesInRange.Values.ToList();
+    //             values[Random.Range(0, values.Count)].Damage(WeaponDamage);
+    //         }
+    //     }
+    // }
 }

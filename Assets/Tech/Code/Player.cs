@@ -37,6 +37,9 @@ public class Player : MonoBehaviour
     {
         // Debug.Log($"Place new object at this position: {position}");
 
+        // If base is destroyed the game is over and we can't spawn new towers
+        if (BaseInScene == null) return;
+
         Tower newTower = Instantiate(TowerPrefab, BaseInScene.transform.position, Quaternion.identity).GetComponent<Tower>();
         newTower.OnPlaced(position);
 
