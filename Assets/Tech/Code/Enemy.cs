@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour
     }
     void Update(){
         if(this.Health <= 0){
+            EnemySpawner.NumberOfEnemiesKilled += 1;
             Destroy(gameObject);
         }
 

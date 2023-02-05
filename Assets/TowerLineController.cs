@@ -10,4 +10,14 @@ public class TowerLineController : MonoBehaviour
     {
         LineComponent.SetPositions(new Vector3[]{start, end});
     }
+
+    public void Hide()
+    {
+        LineComponent.enabled = false;
+    }
+
+    public void Show()
+    {
+        LineComponent.enabled = true;
+    }
 }
