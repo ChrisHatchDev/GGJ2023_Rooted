@@ -15,6 +15,7 @@ public class Tower : IPowerSource
 
     [Space(10)]
     public NavMeshAgent Agent;
+    public NavMeshObstacle NavObstacle;
     public bool Moving = false;
 
     [Header("Material Logic")]
@@ -23,6 +24,7 @@ public class Tower : IPowerSource
     public Material NotPoweredMat;
 
     public MeshRenderer DamageRangeRenderer;
+    public MeshRenderer PowerRangeRenderer;
 
     public Dictionary<GameObject, Enemy> EnemiesInRange = new Dictionary<GameObject, Enemy>();
     public int WeaponDamage = 5;
@@ -31,6 +33,7 @@ public class Tower : IPowerSource
     public TowerLineController LineController;
     public Transform LineStartPoint;
     public Transform LineEndPoint; // Should be the other tower
+    private bool _recentlyMoved;
 
     private void Start()
     {
@@ -45,6 +48,16 @@ public class Tower : IPowerSource
     public void HideDamageVisuals()
     {
         DamageRangeRenderer.enabled = false;
+    }
+
+    public void ShowPowerRangeVisuals()
+    {
+        PowerRangeRenderer.enabled = true;
+    }
+
+    public void HidePowerRangeVisuals()
+    {
+        PowerRangeRenderer.enabled = false;
     }
 
     public void AddEnemeyInRange(Enemy enemy)
@@ -74,6 +87,37 @@ public class Tower : IPowerSource
         {
             LineController.SetLinePoints(LineStartPoint.transform.position, LineEndPoint.transform.position);
         }
+
+        if (_recentlyMoved == false && Agent.enabled && Agent.remainingDistance < 0.1f)
+        {
+            Agent.enabled = false;
+            NavObstacle.enabled = true;
+        }
+    }
+
+    public void OnPickUp()
+    {
+        ShowPowerRangeVisuals();
+    }
+
+    public void OnPlaced(Vector3 placedPos)
+    {
+        Debug.Log($"Placed Turret now to: {placedPos}");
+
+        NavObstacle.enabled = false;
+        Agent.enabled = true;
+        Agent.SetDestination(placedPos);
+        HidePowerRangeVisuals();
+
+        _recentlyMoved = true;
+
+        StartCoroutine(WaitToRenableAgent());
+    }
+
+    IEnumerator WaitToRenableAgent()
+    {
+        yield return new WaitForSeconds(1.0f);
+        _recentlyMoved = false;
     }
 
     private IEnumerator ShootCycle()
