@@ -10,6 +10,7 @@ TagManager:
   - BaseDamageRange
   - BasePowerRange
   - TowerDamageRange
+  - TowerPowerRange
   layers:
   - Default
   - TransparentFX

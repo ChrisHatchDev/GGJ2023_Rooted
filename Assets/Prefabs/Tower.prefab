@@ -271,7 +271,7 @@ Transform:
   m_Children:
   - {fileID: 251020124061903653}
   - {fileID: 1940872685}
-  - {fileID: 167977797}
+  - {fileID: 4433367789636562930}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -339,14 +339,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Anim: {fileID: 101701134}
   StatusText: {fileID: 1269525849}
-  Powered: 0
+  PoweredByTower: 0
+  PoweredByBase: 0
   Agent: {fileID: 7368201837856510635}
   Moving: 0
-  Renderer: {fileID: 1623323185554550696}
-  PoweredMat: {fileID: 2100000, guid: 7a4054c505e5848fcb11f56370022cc8, type: 2}
-  NotPoweredMat: {fileID: 2100000, guid: 0f61f645a6b5749dd8ecb880029e62d6, type: 2}
+  Renderer: {fileID: 8124354819763304239}
+  PoweredMat: {fileID: 2100000, guid: b3fa51cbf6d9c904f85b101febb8f1b9, type: 2}
+  NotPoweredMat: {fileID: 2100000, guid: c9eb18d80825f6a4e9e029ff89747654, type: 2}
   DamageRangeRenderer: {fileID: 167977799}
   WeaponDamage: 5
+  NumEnemiesToShoot: 3
 --- !u!195 &7368201837856510635
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -718,84 +720,202 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
---- !u!1001 &3814781493806240396
+--- !u!137 &8124354819763304239 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -842465954650965023, guid: 84b931cccfabb5d48af1a1f97bdc61d0,
+    type: 3}
+  m_PrefabInstance: {fileID: 356193407956307150}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2244471625810946982
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 5688208798369346421}
     m_Modifications:
-    - target: {fileID: 3814781493638410696, guid: 5ad286ca4199348458a08a86ebbf33de,
+    - target: {fileID: 2244471625710078176, guid: a3ca08126770b4b45b560b6e08de349b,
         type: 3}
-      propertyPath: m_Name
-      value: TowerRangeCollider
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3814781493638410697, guid: 5ad286ca4199348458a08a86ebbf33de,
+    - target: {fileID: 2244471625710078178, guid: a3ca08126770b4b45b560b6e08de349b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495992040346977364, guid: a3ca08126770b4b45b560b6e08de349b,
         type: 3}
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 3814781493638410697, guid: 5ad286ca4199348458a08a86ebbf33de,
+    - target: {fileID: 2495992040346977364, guid: a3ca08126770b4b45b560b6e08de349b,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3814781493638410697, guid: 5ad286ca4199348458a08a86ebbf33de,
+    - target: {fileID: 2495992040346977364, guid: a3ca08126770b4b45b560b6e08de349b,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3814781493638410697, guid: 5ad286ca4199348458a08a86ebbf33de,
+    - target: {fileID: 2495992040346977364, guid: a3ca08126770b4b45b560b6e08de349b,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3814781493638410697, guid: 5ad286ca4199348458a08a86ebbf33de,
+    - target: {fileID: 2495992040346977364, guid: a3ca08126770b4b45b560b6e08de349b,
         type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3814781493638410697, guid: 5ad286ca4199348458a08a86ebbf33de,
+    - target: {fileID: 2495992040346977364, guid: a3ca08126770b4b45b560b6e08de349b,
         type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3814781493638410697, guid: 5ad286ca4199348458a08a86ebbf33de,
+    - target: {fileID: 2495992040346977364, guid: a3ca08126770b4b45b560b6e08de349b,
         type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3814781493638410697, guid: 5ad286ca4199348458a08a86ebbf33de,
+    - target: {fileID: 2495992040346977364, guid: a3ca08126770b4b45b560b6e08de349b,
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3814781493638410697, guid: 5ad286ca4199348458a08a86ebbf33de,
+    - target: {fileID: 2495992040346977364, guid: a3ca08126770b4b45b560b6e08de349b,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3814781493638410697, guid: 5ad286ca4199348458a08a86ebbf33de,
+    - target: {fileID: 2495992040346977364, guid: a3ca08126770b4b45b560b6e08de349b,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3814781493638410697, guid: 5ad286ca4199348458a08a86ebbf33de,
+    - target: {fileID: 2495992040346977364, guid: a3ca08126770b4b45b560b6e08de349b,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3396928562600946101, guid: a3ca08126770b4b45b560b6e08de349b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3396928562600946103, guid: a3ca08126770b4b45b560b6e08de349b,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3856456291937861009, guid: a3ca08126770b4b45b560b6e08de349b,
+        type: 3}
+      propertyPath: m_Name
+      value: TowerRangeObjects
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5ad286ca4199348458a08a86ebbf33de, type: 3}
---- !u!4 &167977797 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3814781493638410697, guid: 5ad286ca4199348458a08a86ebbf33de,
-    type: 3}
-  m_PrefabInstance: {fileID: 3814781493806240396}
-  m_PrefabAsset: {fileID: 0}
+  m_SourcePrefab: {fileID: 100100000, guid: a3ca08126770b4b45b560b6e08de349b, type: 3}
 --- !u!23 &167977799 stripped
 MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 3814781493638410699, guid: 5ad286ca4199348458a08a86ebbf33de,
+  m_CorrespondingSourceObject: {fileID: 2244471625710078177, guid: a3ca08126770b4b45b560b6e08de349b,
     type: 3}
-  m_PrefabInstance: {fileID: 3814781493806240396}
+  m_PrefabInstance: {fileID: 2244471625810946982}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3459230203733246483 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3396928562600946101, guid: a3ca08126770b4b45b560b6e08de349b,
+    type: 3}
+  m_PrefabInstance: {fileID: 2244471625810946982}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1181492762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3459230203733246483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8c0601c46a9149d8b5bc1ce52e8b7d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TagToCheck: TowerPowerRange
+  OnEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 356193407890306561}
+        m_TargetAssemblyTypeName: Tower, Assembly-CSharp
+        m_MethodName: OnTowerPowerEnter
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnExit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 356193407890306561}
+        m_TargetAssemblyTypeName: Tower, Assembly-CSharp
+        m_MethodName: OnTowerPowerExit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1181492761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3459230203733246483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8c0601c46a9149d8b5bc1ce52e8b7d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TagToCheck: BasePowerRange
+  OnEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 356193407890306561}
+        m_TargetAssemblyTypeName: Tower, Assembly-CSharp
+        m_MethodName: OnBasePowerEnter
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnExit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 356193407890306561}
+        m_TargetAssemblyTypeName: Tower, Assembly-CSharp
+        m_MethodName: OnBasePowerExit
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!4 &4433367789636562930 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2495992040346977364, guid: a3ca08126770b4b45b560b6e08de349b,
+    type: 3}
+  m_PrefabInstance: {fileID: 2244471625810946982}
   m_PrefabAsset: {fileID: 0}
