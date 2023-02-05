@@ -15,11 +15,8 @@ public class EnemySpawner : MonoBehaviour
     private EnemySpawnPoint currentSpawnPoint;
     private bool waitingForWaveToDie = false;
 
-    public int CurrentWave = 0;
+    public static int CurrentWave = 0;
     public static int NumberOfEnemiesKilled;
-
-    public TMPro.TMP_Text WaveText;
-    public TMPro.TMP_Text NumberOfEnemiesText;
 
     void Start()
     {
@@ -27,11 +24,6 @@ public class EnemySpawner : MonoBehaviour
         NumberOfEnemiesKilled = 0;
 
         InvokeRepeating("SpawnAtRandomPoint", 2.0f, (float)spawn_delay_s);
-    }
-
-    private void Update()
-    {
-        NumberOfEnemiesText.text = $"Enemies Killed: {NumberOfEnemiesKilled}";
     }
 
     void SpawnAtRandomPoint()
@@ -42,7 +34,6 @@ public class EnemySpawner : MonoBehaviour
         }
 
         CurrentWave += 1;
-        WaveText.text = $"Wave: {CurrentWave}";
 
         currentSpawnPoint = ListOfSpawnPoints[Random.Range(0, ListOfSpawnPoints.Count)];
         currentSpawnPoint.SpawnWave(EnemyPrefab, BaseBuilding);

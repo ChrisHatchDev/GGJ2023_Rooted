@@ -16,7 +16,6 @@ public class Player : MonoBehaviour
     Vector3 currentPointedPos;
     public bool pointingAtGround = false;
 
-
     public GameObject TowerPrefab;
     public bool PlacingATowerMode;
     public int InitialNumberOfTowers = 3;
@@ -82,7 +81,7 @@ public class Player : MonoBehaviour
 
         if (Physics.Raycast(rayTower, out hit, 100000, TowerMask))
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && TargetTower == null)
             {
                 TargetTower = hit.collider.GetComponent<Tower>();
             }

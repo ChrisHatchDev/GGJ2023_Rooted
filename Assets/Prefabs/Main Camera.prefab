@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5619452820796202667
 Transform:
   m_ObjectHideFlags: 0
@@ -164,7 +164,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41839527c62c84a5ea75d08dba2de16d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BaseInScene: {fileID: 0}
   TestPositionCube: {fileID: 5619452820796202663}
   GroundMask:
     serializedVersion: 2

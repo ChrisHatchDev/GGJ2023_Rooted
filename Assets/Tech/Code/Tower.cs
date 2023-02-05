@@ -31,9 +31,12 @@ public class Tower : IPowerSource
     public Transform TorsoTransform;
     public Enemy LookAtTarget;
 
+    public AudioSource AudioThing;
+
     private void Start()
     {
         StartCoroutine(ShootCycle());
+        StartCoroutine(ShootSoundCycle());
     }
 
     public void ShowDamageVisuals()
@@ -155,6 +158,19 @@ public class Tower : IPowerSource
         yield return new WaitForSeconds(0.5f);
         ShootAllEnemiesInRange();
         StartCoroutine(ShootCycle());
+    }
+
+    private IEnumerator ShootSoundCycle()
+    {
+        yield return new WaitForSeconds(0.3f);
+
+        if (HasPower && !Moving && EnemiesInRange.Count > 0 && LookAtTarget)
+        {
+            AudioThing.pitch = Random.Range(1, 3f);
+            AudioThing.PlayOneShot(AudioThing.clip);
+        }
+
+        StartCoroutine(ShootSoundCycle());
     }
 
     public void ShootAllEnemiesInRange()

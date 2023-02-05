@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 using UnityEngine.UI;
 
+#if UNITY_EDITOR
+using UnityEditor;
 [CustomEditor(typeof(Base))]
 public class BaseEditor: Editor
 {
@@ -14,6 +15,7 @@ public class BaseEditor: Editor
         GUILayout.Label($"Towers in Range (${_target.TowersInRange.Count})");
     }
 }
+#endif
 
 public class Base : IPowerSource
 {
@@ -47,6 +49,7 @@ public class Base : IPowerSource
 
     private void DestroyBase()
     {
+        MainUI.ShowGameOverScreen();
         Destroy(gameObject);
     }
 

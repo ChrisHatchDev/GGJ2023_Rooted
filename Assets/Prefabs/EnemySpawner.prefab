@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wave_size: 10
+  activeWave: []
 --- !u!1 &3261533676457285432
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,6 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wave_size: 10
+  activeWave: []
 --- !u!1 &3261533676971400943
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,3 +192,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wave_size: 10
+  activeWave: []
