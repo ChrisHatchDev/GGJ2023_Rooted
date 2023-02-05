@@ -130,7 +130,7 @@ public class Tower : IPowerSource
 
     public void OnPlaced(Vector3 placedPos)
     {
-        Debug.Log($"Placed Turret now to: {placedPos}");
+        // Debug.Log($"Placed Turret now to: {placedPos}");
 
         NavObstacle.enabled = false;
         Agent.enabled = true;
