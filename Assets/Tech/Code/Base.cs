@@ -24,6 +24,7 @@ public class Base : MonoBehaviour
     public int attack_damage = 5;
 
     public Image HealthbarFill;
+    public List<LineRenderer> ListOfTowerLines;
 
     private void Start()
     {
@@ -41,6 +42,9 @@ public class Base : MonoBehaviour
         }
 
         HealthbarFill.fillAmount = (Health / MaxHealth);
+        foreach(var t in TowersInRange){
+            Debug.DrawLine(transform.position, t.Value.transform.position, Color.green);
+        }
     }
 
     private void DestroyBase()
