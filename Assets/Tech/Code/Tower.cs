@@ -65,8 +65,6 @@ public class Tower : IPowerSource
 
         if (PowerSource)
         {
-            Debug.Log(PowerSource.LineConnectionPoint);
-            Debug.Log("we drawing the line controller bruh");
             LineController.SetLinePoints(LineConnectionPoint.position, PowerSource.LineConnectionPoint.transform.position);
         }
     }

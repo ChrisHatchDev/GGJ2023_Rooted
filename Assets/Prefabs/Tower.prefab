@@ -497,7 +497,7 @@ MonoBehaviour:
   DamageRangeRenderer: {fileID: 167977799}
   WeaponDamage: 5
   NumEnemiesToShoot: 3
-  LineController: {fileID: 0}
+  LineController: {fileID: 637200427283626353}
   PowerSource: {fileID: 0}
 --- !u!195 &7368201837856510635
 NavMeshAgent:
