@@ -10,14 +10,15 @@ public class Tower : MonoBehaviour
     public Animator Anim;
 
     public TMPro.TMP_Text StatusText;
-    public bool Powered = false;
+    public bool PoweredByTower = false;
+    public bool PoweredByBase = false;
 
     [Space(10)]
     public NavMeshAgent Agent;
     public bool Moving = false;
 
     [Header("Material Logic")]
-    public MeshRenderer Renderer;
+    public SkinnedMeshRenderer Renderer;
     public Material PoweredMat;
     public Material NotPoweredMat;
 
@@ -61,7 +62,7 @@ public class Tower : MonoBehaviour
 
     void Update()
     {
-        string statusText = Powered ? "POWERED" : "NOT POWRED";
+        string statusText = (PoweredByTower || PoweredByBase) ? "POWERED" : "NOT POWRED";
         string movingText = Moving ? "Moving" : "Stationary";
 
         StatusText.text = $"{statusText}\n{movingText}";
@@ -92,30 +93,44 @@ public class Tower : MonoBehaviour
         }
     }
 
-    public void SetPowerStatus(bool isPowered)
+    public void SetPowerStatusVisuals()
     {
-        Renderer.materials = new Material[]{isPowered ? PoweredMat : NotPoweredMat};
-        Powered = isPowered;
+        Renderer.materials = new Material[]{(PoweredByTower || PoweredByBase) ? PoweredMat : NotPoweredMat};
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void SetPoweredByTower(bool poweredByTower, bool poweredByBase)
     {
-        if (other.tag == "BasePowerRange")
-        {
-            Base _base = other.gameObject.GetComponentInParent<Base>();
-            _base.AddTowerInRange(this);
-            SetPowerStatus(true);
-        }   
+        Renderer.materials = new Material[]{(PoweredByTower || PoweredByBase) ? PoweredMat : NotPoweredMat};
+        PoweredByBase = poweredByBase;
+        PoweredByTower = poweredByTower;
     }
 
-    private void OnTriggerExit(Collider other)
+    public void OnTowerPowerEnter(Collider other)
     {
-        if (other.tag == "BasePowerRange")
-        {
-            Base _base = other.gameObject.GetComponentInParent<Base>();
-            _base.RemoveTowerInRange(this);
+        PoweredByTower = true;
+        SetPowerStatusVisuals();
+    }
 
-            SetPowerStatus(false);
-        } 
+    public void OnTowerPowerExit()
+    {
+        PoweredByTower = false;
+        SetPowerStatusVisuals();
+    }
+
+    public void OnBasePowerEnter(Collider other)
+    {
+        PoweredByBase = true;
+        Base _base = other.gameObject.GetComponentInParent<Base>();
+        _base.AddTowerInRange(this);
+        SetPowerStatusVisuals();
+    }
+
+    public void OnBasePowerExit(Collider other)
+    {
+        Base _base = other.gameObject.GetComponentInParent<Base>();
+        _base.RemoveTowerInRange(this);
+
+        PoweredByBase = false;
+        SetPowerStatusVisuals();
     }
 }
