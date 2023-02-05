@@ -24,7 +24,7 @@ public class Tower : IPowerSource
     public int WeaponDamage = 5;
     public int NumEnemiesToShoot = 3;
     public TowerLineController LineController;
-    public IPowerSource PowerSource;  // This should be a union between towers and bases because those will be the only power sources
+    public IPowerSource PowerSource;
     public Dictionary<GameObject, Tower> TowersInRange = new Dictionary<GameObject, Tower>();
     private bool _recentlyMoved;
 
@@ -78,6 +78,7 @@ public class Tower : IPowerSource
 
         if (PowerSource)
         {
+            Debug.Log("we have a valid powersource");
             LineController.SetLinePoints(LineConnectionPoint.position, PowerSource.LineConnectionPoint.transform.position);
         }
 

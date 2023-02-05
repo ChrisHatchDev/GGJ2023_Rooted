@@ -129,7 +129,6 @@ GameObject:
   - component: {fileID: 3396928562600946103}
   - component: {fileID: 3396928562600946104}
   - component: {fileID: 1181492761}
-  - component: {fileID: 1181492762}
   m_Layer: 0
   m_Name: TowerPowerRangeCollider
   m_TagString: TowerPowerRange
@@ -267,49 +266,6 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: Tower, Assembly-CSharp
         m_MethodName: OnBasePowerExit
         m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &1181492762
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3396928562600946101}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8c0601c46a9149d8b5bc1ce52e8b7d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TagToCheck: TowerPowerRange
-  OnEnter:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Tower, Assembly-CSharp
-        m_MethodName: OnTowerPowerEnter
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnExit:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Tower, Assembly-CSharp
-        m_MethodName: OnTowerPowerExit
-        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

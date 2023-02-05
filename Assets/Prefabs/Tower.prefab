@@ -412,7 +412,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5688208798369346421}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!120 &1517624607430722072
 LineRenderer:
@@ -564,6 +564,7 @@ Transform:
   - {fileID: 1940872685}
   - {fileID: 4433367789636562930}
   - {fileID: 949658055114446725}
+  - {fileID: 512017407}
   - {fileID: 8010042034948990038}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -632,7 +633,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HasPower: 0
   LineConnectionPoint: {fileID: 8010042034948990038}
-  PowerType: 0
+  PowerType: 1
   Anim: {fileID: 101701134}
   StatusText: {fileID: 1269525849}
   Agent: {fileID: 7368201837856510635}
@@ -646,7 +647,8 @@ MonoBehaviour:
   WeaponDamage: 5
   NumEnemiesToShoot: 3
   LineController: {fileID: 637200427283626353}
-  PowerSource: {fileID: 0}
+  PowerSource: {fileID: 6847218619517138309, guid: 96481f51239004bc4ab4003cf00d4853,
+    type: 3}
 --- !u!195 &7368201837856510635
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1055,14 +1057,26 @@ PrefabInstance:
       propertyPath: OnEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 356193407890306561}
+    - target: {fileID: 1181492761, guid: a3ca08126770b4b45b560b6e08de349b, type: 3}
+      propertyPath: OnExit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPowerSourceExit
+      objectReference: {fileID: 0}
+    - target: {fileID: 1181492761, guid: a3ca08126770b4b45b560b6e08de349b, type: 3}
+      propertyPath: OnEnter.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPowerSourceEnter
+      objectReference: {fileID: 0}
     - target: {fileID: 1181492762, guid: a3ca08126770b4b45b560b6e08de349b, type: 3}
-      propertyPath: OnExit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      propertyPath: TagToCheck
       value: 
-      objectReference: {fileID: 356193407890306561}
+      objectReference: {fileID: 0}
     - target: {fileID: 1181492762, guid: a3ca08126770b4b45b560b6e08de349b, type: 3}
-      propertyPath: OnEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 356193407890306561}
+      propertyPath: OnExit.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1181492762, guid: a3ca08126770b4b45b560b6e08de349b, type: 3}
+      propertyPath: OnEnter.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2495992040346977364, guid: a3ca08126770b4b45b560b6e08de349b,
         type: 3}
       propertyPath: m_RootOrder
@@ -1152,49 +1166,6 @@ MeshRenderer:
     type: 3}
   m_PrefabInstance: {fileID: 2244471625810946982}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1181492762
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3459230203733246483}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8c0601c46a9149d8b5bc1ce52e8b7d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TagToCheck: PowerRanger
-  OnEnter:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 356193407890306561}
-        m_TargetAssemblyTypeName: Tower, Assembly-CSharp
-        m_MethodName: OnPowerSourceEnter
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnExit:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 356193407890306561}
-        m_TargetAssemblyTypeName: Tower, Assembly-CSharp
-        m_MethodName: OnPowerSourceExit
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!4 &4433367789636562930 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2495992040346977364, guid: a3ca08126770b4b45b560b6e08de349b,
@@ -1276,3 +1247,46 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7025295481916080926}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1181492762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8c0601c46a9149d8b5bc1ce52e8b7d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TagToCheck: PowerRanger
+  OnEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 356193407890306561}
+        m_TargetAssemblyTypeName: Tower, Assembly-CSharp
+        m_MethodName: OnPowerSourceEnter
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnExit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 356193407890306561}
+        m_TargetAssemblyTypeName: Tower, Assembly-CSharp
+        m_MethodName: OnPowerSourceExit
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
