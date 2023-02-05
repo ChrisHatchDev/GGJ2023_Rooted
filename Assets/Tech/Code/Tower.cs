@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.AI;
 using System.Linq;
 
-public class Tower : MonoBehaviour
+public class Tower : IPowerSource
 {
     public Animator Anim;
 
@@ -140,5 +140,10 @@ public class Tower : MonoBehaviour
 
         PoweredByBase = false;
         SetPowerStatusVisuals();
+    }
+
+    public override PowerSourceType GetPowerType()
+    {
+        return PowerType;
     }
 }

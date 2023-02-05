@@ -15,7 +15,7 @@ public class BaseEditor: Editor
     }
 }
 
-public class Base : MonoBehaviour
+public class Base : IPowerSource
 {
     // 1-10. 10 Being full health
     public float MaxHealth = 1000;
@@ -66,5 +66,10 @@ public class Base : MonoBehaviour
         {
             TowersInRange.Remove(tower.gameObject);
         }
+    }
+
+    public override PowerSourceType GetPowerType()
+    {
+        return PowerType;
     }
 }
