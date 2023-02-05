@@ -185,12 +185,6 @@ public class Tower : IPowerSource
     {
         Renderer.materials = new Material[]{HasPower ? PoweredMat : NotPoweredMat};
     }
-
-    public void SetPoweredByTower(bool poweredByTower, bool poweredByBase)
-    {
-        Renderer.materials = new Material[]{HasPower ? PoweredMat : NotPoweredMat};
-    }
-
     bool HasValidPower(IPowerSource ps, List<IPowerSource> seen){
         if(ps == null){
             return false;
@@ -210,6 +204,7 @@ public class Tower : IPowerSource
         PowerSourceList.Add(otherPowerSource);
         if(HasValidPower(otherPowerSource, new List<IPowerSource>())){
             PowerSource = otherPowerSource;
+            HasPower = true;
         }
     }
 
@@ -219,9 +214,11 @@ public class Tower : IPowerSource
         var otherPowerSource = other.gameObject.GetComponentInParent<IPowerSource>();
         PowerSourceList.Remove(otherPowerSource);
         PowerSource = null;
+        HasPower = false;
         foreach(var ps in PowerSourceList){
             if(HasValidPower(ps, new List<IPowerSource>())){
                 PowerSource = ps;
+                HasPower = true;
             }
         }
     }
