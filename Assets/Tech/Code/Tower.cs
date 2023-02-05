@@ -104,8 +104,8 @@ public class Tower : IPowerSource
         if (HasPower && PowerSource)
         {
             Debug.Log("we have a valid powersource");
-            LineController.SetLinePoints(LineConnectionPoint.position, PowerSource.LineConnectionPoint.transform.position);
             LineController.Show();
+            LineController.SetLinePoints(LineConnectionPoint.position, PowerSource.LineConnectionPoint.transform.position);
         }
         else
         {

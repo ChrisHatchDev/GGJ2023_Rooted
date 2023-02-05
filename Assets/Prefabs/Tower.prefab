@@ -417,7 +417,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dc3dea2ad960714fade9be6af8a4045, type: 2}
+  - {fileID: 2100000, guid: 836b134264e784046b0899631f17895a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -438,7 +438,9 @@ LineRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Positions: []
+  m_Positions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 8.42, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -487,7 +489,7 @@ LineRenderer:
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
-    numCapVertices: 0
+    numCapVertices: 10
     alignment: 1
     textureMode: 0
     shadowBias: 0.5
@@ -1072,10 +1074,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 5688208798369346421}
     m_Modifications:
     - target: {fileID: 1181492761, guid: a3ca08126770b4b45b560b6e08de349b, type: 3}
-      propertyPath: TagToCheck
-      value: PowerRanger
-      objectReference: {fileID: 0}
-    - target: {fileID: 1181492761, guid: a3ca08126770b4b45b560b6e08de349b, type: 3}
       propertyPath: OnExit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 356193407890306561}
@@ -1083,26 +1081,6 @@ PrefabInstance:
       propertyPath: OnEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 356193407890306561}
-    - target: {fileID: 1181492761, guid: a3ca08126770b4b45b560b6e08de349b, type: 3}
-      propertyPath: OnExit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnPowerSourceExit
-      objectReference: {fileID: 0}
-    - target: {fileID: 1181492761, guid: a3ca08126770b4b45b560b6e08de349b, type: 3}
-      propertyPath: OnEnter.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnPowerSourceEnter
-      objectReference: {fileID: 0}
-    - target: {fileID: 1181492762, guid: a3ca08126770b4b45b560b6e08de349b, type: 3}
-      propertyPath: TagToCheck
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1181492762, guid: a3ca08126770b4b45b560b6e08de349b, type: 3}
-      propertyPath: OnExit.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1181492762, guid: a3ca08126770b4b45b560b6e08de349b, type: 3}
-      propertyPath: OnEnter.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2495992040346977364, guid: a3ca08126770b4b45b560b6e08de349b,
         type: 3}
       propertyPath: m_RootOrder
@@ -1157,21 +1135,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3396928562600946101, guid: a3ca08126770b4b45b560b6e08de349b,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3396928562600946101, guid: a3ca08126770b4b45b560b6e08de349b,
-        type: 3}
-      propertyPath: m_TagString
-      value: PowerRanger
-      objectReference: {fileID: 0}
-    - target: {fileID: 3396928562600946103, guid: a3ca08126770b4b45b560b6e08de349b,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3856456291937861009, guid: a3ca08126770b4b45b560b6e08de349b,
         type: 3}

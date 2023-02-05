@@ -8,6 +8,7 @@ public class TowerLineController : MonoBehaviour
 
     public void SetLinePoints(Vector3 start, Vector3 end)
     {
+        LineComponent.enabled = true;
         LineComponent.SetPositions(new Vector3[]{start, end});
     }
 
