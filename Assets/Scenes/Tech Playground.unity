@@ -3872,18 +3872,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1038603311, guid: d0322a9b9d0f24283b9f57881bfd20a4, type: 3}
-      propertyPath: Target
-      value: 
-      objectReference: {fileID: 6847218619517138309}
-    - target: {fileID: 1038603312, guid: d0322a9b9d0f24283b9f57881bfd20a4, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1038603318, guid: d0322a9b9d0f24283b9f57881bfd20a4, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6651303277963608944, guid: d0322a9b9d0f24283b9f57881bfd20a4,
         type: 3}
       propertyPath: m_RootOrder
@@ -3943,11 +3931,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 6651303277963608948, guid: d0322a9b9d0f24283b9f57881bfd20a4,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0322a9b9d0f24283b9f57881bfd20a4, type: 3}
