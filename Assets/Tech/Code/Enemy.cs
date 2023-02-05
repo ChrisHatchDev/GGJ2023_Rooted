@@ -15,7 +15,9 @@ public class Enemy : MonoBehaviour
     {
         if (Target)
         {
+
             Agent.SetDestination(Target.transform.position);
+            Agent.speed += Random.Range((float)-0.12, (float)0.12);
         }
 
         StartCoroutine(DamageCycle());
