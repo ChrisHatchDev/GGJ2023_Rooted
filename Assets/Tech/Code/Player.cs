@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public Base BaseInScene;
+    private Base BaseInScene;
 
     public GameObject TestPositionCube;
     public LayerMask GroundMask;
@@ -35,12 +35,10 @@ public class Player : MonoBehaviour
     
     public void PlaceNewTurret(Vector3 position)
     {
-        Debug.Log($"Place new object at this position: {position}");
+        // Debug.Log($"Place new object at this position: {position}");
 
         Tower newTower = Instantiate(TowerPrefab, BaseInScene.transform.position, Quaternion.identity).GetComponent<Tower>();
-        newTower.Agent.destination = position;
-
-        newTower.HideDamageVisuals();
+        newTower.OnPlaced(position);
 
         if (InitialNumberOfTowers > 1)
         {
@@ -103,24 +101,24 @@ public class Player : MonoBehaviour
             {
                 if (towerPickedUp && TargetTower)
                 {
-                    PlaceTurret(TargetTower);
+                    PlaceTower(TargetTower);
                 }
 
                 if (towerPickedUp == false && TargetTower)
                 {
-                    PickupTurret(TargetTower);
+                    PickupTower(TargetTower);
                 }
             }
         }
     }
 
-    public void PlaceTurret(Tower tower)
+    public void PlaceTower(Tower tower)
     {
         if (pointingAtGround)
         {
             TargetTower = null;
-            tower.Agent.SetDestination(currentPointedPos);
             towerPickedUp = false;
+            tower.OnPlaced(currentPointedPos);
             TestPositionCube.SetActive(false);
             
             Debug.Log("Placed Turret");
@@ -131,10 +129,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void PickupTurret(Tower tower)
+    public void PickupTower(Tower tower)
     {
         Debug.Log("PICKED UP TOWER");
         towerPickedUp = true;
+        tower.OnPickUp();
         TestPositionCube.SetActive(true);
     }
 }
