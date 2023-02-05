@@ -2,20 +2,25 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
     public NavMeshAgent Agent;
     public Base Target;
     public int attack_damage = 3;
-    public int Health = 100;
+    public float Health = 100;
+    private float MaxHealth = 100;
     private bool inRange = false;
+
+    public Image HealthBarFillImage;
 
     void Start()
     {
+        MaxHealth = Health;
+
         if (Target)
         {
-
             Agent.SetDestination(Target.transform.position);
             Agent.speed += Random.Range((float)-0.12, (float)0.12);
         }
@@ -26,6 +31,8 @@ public class Enemy : MonoBehaviour
         if(this.Health <= 0){
             Destroy(gameObject);
         }
+
+        HealthBarFillImage.fillAmount = (Health / MaxHealth);
     }
     public void CheckRangeToBase()
     {
