@@ -94,6 +94,8 @@ public class Tower : IPowerSource
             NavObstacle.enabled = true;
             Moving = false;
 
+            HasValidPower(PowerSource, new List<IPowerSource>());
+
             Anim.SetTrigger("Sit");
         }
 
@@ -194,9 +196,6 @@ public class Tower : IPowerSource
         
         foreach(var ps in PowerSourceList)
         {
-            if(ps is Base){
-                PowerSource = ps;
-            }
             if(HasValidPower(ps, new List<IPowerSource>())){
                 PowerSource = ps;
             }
@@ -206,16 +205,23 @@ public class Tower : IPowerSource
     }
 
 
-    bool HasValidPower(IPowerSource ps, List<IPowerSource> seen){
+    public override bool HasValidPower(IPowerSource ps, List<IPowerSource> seen){
         if(ps == null){
+            PowerSource = null;
             return false;
         } else if(ps is Base){
+            PowerSource = ps;
             return true;
         } else if(seen.Contains(ps)){
+            PowerSource = null;
             return false;
         }
         seen.Add(ps);
-        return HasValidPower(ps.PowerSource, seen);
+        foreach(var newps in ps.PowerSourceList){
+            return ps.HasValidPower(newps, seen);
+        }
+        PowerSource=null;
+        return false;
     }
 
     public void OnPowerSourceEnter(Collider other)
@@ -223,7 +229,7 @@ public class Tower : IPowerSource
         Debug.Log("OnTowerPowerEnter");
         var otherPowerSource = other.gameObject.GetComponentInParent<IPowerSource>();
         PowerSourceList.Add(otherPowerSource);
-        PowerSource = null;
+        //PowerSource = null;
         foreach(var ps in PowerSourceList){
             if(ps is Base){
                 PowerSource = ps;
@@ -240,7 +246,7 @@ public class Tower : IPowerSource
         Debug.Log("OnTowerPowerExit");
         var otherPowerSource = other.gameObject.GetComponentInParent<IPowerSource>();
         PowerSourceList.Remove(otherPowerSource);
-        PowerSource = null;
+        // PowerSource = null;
         foreach(var ps in PowerSourceList){
             if(ps is Base){
                 PowerSource = ps;

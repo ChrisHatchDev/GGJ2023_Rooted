@@ -14,4 +14,5 @@ public abstract class IPowerSource : MonoBehaviour
     public Transform LineConnectionPoint;
     public PowerSourceType PowerType;
     public abstract PowerSourceType GetPowerType();
+    public abstract bool HasValidPower(IPowerSource ps, List<IPowerSource> seen);
 }

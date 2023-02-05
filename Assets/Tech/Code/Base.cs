@@ -86,4 +86,8 @@ public class Base : IPowerSource
     {
         return PowerType;
     }
+    public override bool HasValidPower(IPowerSource ps, List<IPowerSource> seen)
+    {
+        return true;
+    }
 }
