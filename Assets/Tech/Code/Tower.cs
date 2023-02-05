@@ -24,7 +24,6 @@ public class Tower : IPowerSource
     public int WeaponDamage = 5;
     public int NumEnemiesToShoot = 3;
     public TowerLineController LineController;
-    public IPowerSource PowerSource;
     public Dictionary<GameObject, IPowerSource> PowerSourcesInRange = new Dictionary<GameObject, IPowerSource>();
     private bool _recentlyMoved;
 
@@ -83,9 +82,7 @@ public class Tower : IPowerSource
 
     void Update()
     {
-        HasPower = HasValidPower();
-
-        string statusText = HasPower ? "POWERED" : "NOT POWRED";
+        string statusText = PowerSource ? "POWERED" : "NOT POWRED";
         string movingText = Moving ? "Moving" : "Stationary";
 
         StatusText.text = $"{statusText}\n{movingText}";
@@ -101,7 +98,7 @@ public class Tower : IPowerSource
 
         SetPowerStatusVisuals();
 
-        if (HasPower && PowerSource)
+        if (PowerSource)
         {
             Debug.Log("we have a valid powersource");
             LineController.Show();
@@ -112,13 +109,13 @@ public class Tower : IPowerSource
             LineController.Hide();
         }
 
-        if (LookAtTarget && HasPower && !Moving)
+        if (LookAtTarget && PowerSource && !Moving)
         {
             TorsoTransform.LookAt(LookAtTarget.transform.position);
             TorsoTransform.transform.rotation = Quaternion.Euler(new Vector3(0, TorsoTransform.rotation.eulerAngles.y, TorsoTransform.rotation.eulerAngles.z));
         }
 
-        Anim.SetBool("Shooting", EnemiesInRange.Count > 0 && !Moving && HasPower && LookAtTarget);
+        Anim.SetBool("Shooting", EnemiesInRange.Count > 0 && !Moving && PowerSource && LookAtTarget);
     }
 
     public void OnPickUp()
@@ -133,7 +130,7 @@ public class Tower : IPowerSource
 
     public void OnPlaced(Vector3 placedPos)
     {
-        Debug.Log($"Placed Turret now to: {placedPos}");
+        // Debug.Log($"Placed Turret now to: {placedPos}");
 
         NavObstacle.enabled = false;
         Agent.enabled = true;
@@ -164,7 +161,7 @@ public class Tower : IPowerSource
     {
         yield return new WaitForSeconds(0.3f);
 
-        if (HasPower && !Moving && EnemiesInRange.Count > 0 && LookAtTarget)
+        if (PowerSource && !Moving && EnemiesInRange.Count > 0 && LookAtTarget)
         {
             AudioThing.pitch = Random.Range(1, 3f);
             AudioThing.PlayOneShot(AudioThing.clip);
@@ -175,7 +172,7 @@ public class Tower : IPowerSource
 
     public void ShootAllEnemiesInRange()
     {
-        if(HasPower && !Moving)
+        if(PowerSource && !Moving)
         {
             foreach (var enemeyPair in EnemiesInRange)
             {
@@ -186,24 +183,18 @@ public class Tower : IPowerSource
 
     public void SetPowerStatusVisuals()
     {
-        Renderer.materials = new Material[]{HasPower ? PoweredMat : NotPoweredMat};
+        Renderer.materials = new Material[]{PowerSource ? PoweredMat : NotPoweredMat};
     }
-
-    public void SetPoweredByTower(bool poweredByTower, bool poweredByBase)
-    {
-        Renderer.materials = new Material[]{HasPower ? PoweredMat : NotPoweredMat};
-    }
-
-    bool HasValidPower(){
-        foreach (IPowerSource item in PowerSourceList){
-            if(item.HasPower){
-                PowerSource = item;
-            }
-            if (item.PowerType == PowerSourceType.Base){
-                return true;
-            }
+    bool HasValidPower(IPowerSource ps, List<IPowerSource> seen){
+        if(ps == null){
+            return false;
+        } else if(ps is Base){
+            return true;
+        } else if(seen.Contains(ps)){
+            return false;
         }
-        return false;
+        seen.Add(ps);
+        return HasValidPower(ps.PowerSource, seen);
     }
 
     public void OnPowerSourceEnter(Collider other)
@@ -211,7 +202,16 @@ public class Tower : IPowerSource
         Debug.Log("OnTowerPowerEnter");
         var otherPowerSource = other.gameObject.GetComponentInParent<IPowerSource>();
         PowerSourceList.Add(otherPowerSource);
-        PowerSourceList.UnionWith(otherPowerSource.PowerSourceList);
+        PowerSource = null;
+        foreach(var ps in PowerSourceList){
+            if(ps is Base){
+                PowerSource = ps;
+                return;
+            }
+            if(HasValidPower(ps, new List<IPowerSource>())){
+                PowerSource = ps;
+            }
+        }
     }
 
     public void OnPowerSourceExit(Collider other)
@@ -219,21 +219,19 @@ public class Tower : IPowerSource
         Debug.Log("OnTowerPowerExit");
         var otherPowerSource = other.gameObject.GetComponentInParent<IPowerSource>();
         PowerSourceList.Remove(otherPowerSource);
-        PowerSourceList.ExceptWith(otherPowerSource.PowerSourceList);
+        PowerSource = null;
+        foreach(var ps in PowerSourceList){
+            if(ps is Base){
+                PowerSource = ps;
+                return;
+            }
+            if(HasValidPower(ps, new List<IPowerSource>())){
+                PowerSource = ps;
+            } 
+        }
     }
     public override PowerSourceType GetPowerType()
     {
         return PowerType;
     }
-
-    // public void ShootNEnemiesInRange(int n){
-    //     if(HasPower)
-    //     {
-    //         Anim.SetBool("Shooting", EnemiesInRange.Count > 0);
-    //         for(int i =0; i<n; i++){
-    //             List<Enemy> values = EnemiesInRange.Values.ToList();
-    //             values[Random.Range(0, values.Count)].Damage(WeaponDamage);
-    //         }
-    //     }
-    // }
 }
