@@ -79,7 +79,7 @@ public class Tower : IPowerSource
 
         StatusText.text = $"{statusText}\n{movingText}";
 
-        if (HasPower)
+        if (HasPower && PowerSource)
         {
             Debug.Log("we have a valid powersource");
             LineController.SetLinePoints(LineConnectionPoint.position, PowerSource.LineConnectionPoint.transform.position);
@@ -160,47 +160,32 @@ public class Tower : IPowerSource
         Renderer.materials = new Material[]{HasPower ? PoweredMat : NotPoweredMat};
     }
 
-    bool HasValidPower()
-    {
-        foreach (KeyValuePair<GameObject, IPowerSource> item in PowerSourcesInRange)
-        {
-            if (item.Value.HasPower)
-            {
-                PowerSource = item.Value;
+    bool HasValidPower(){
+        foreach (IPowerSource item in PowerSourceList){
+            if(item.HasPower){
+                PowerSource = item;
+            }
+            if (item.PowerType == PowerSourceType.Base){
                 return true;
             }
         }
-
-        PowerSource = null;
         return false;
     }
 
     public void OnPowerSourceEnter(Collider other)
     {
         Debug.Log("OnTowerPowerEnter");
-        AddPowerSourceInRange(other.gameObject.GetComponentInParent<IPowerSource>());
+        var otherPowerSource = other.gameObject.GetComponentInParent<IPowerSource>();
+        PowerSourceList.Add(otherPowerSource);
+        PowerSourceList.UnionWith(otherPowerSource.PowerSourceList);
     }
 
     public void OnPowerSourceExit(Collider other)
     {
         Debug.Log("OnTowerPowerExit");
-        RemovePowerSourceInRange(other.gameObject.GetComponentInParent<IPowerSource>());
-    }
-
-    public void AddPowerSourceInRange(IPowerSource powerSource)
-    {
-        if (!PowerSourcesInRange.ContainsKey(powerSource.gameObject))
-        {
-            PowerSourcesInRange.TryAdd(powerSource.gameObject, powerSource);
-        }
-    }
-
-    public void RemovePowerSourceInRange(IPowerSource powerSource)
-    {
-        if (PowerSourcesInRange.ContainsKey(powerSource.gameObject))
-        {
-            PowerSourcesInRange.Remove(powerSource.gameObject);
-        }
+        var otherPowerSource = other.gameObject.GetComponentInParent<IPowerSource>();
+        PowerSourceList.Remove(otherPowerSource);
+        PowerSourceList.ExceptWith(otherPowerSource.PowerSourceList);
     }
     public override PowerSourceType GetPowerType()
     {
