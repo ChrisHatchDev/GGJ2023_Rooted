@@ -5,12 +5,25 @@ using UnityEngine;
 public class CameraControls : MonoBehaviour
 {
     public Transform Pivot;
-    public float RotateSpeed;
+    public float RotateSpeed = 50;
+    public float ZoomSpeed = 20;
+
+    Transform camTransform;
+
+    private void Start()
+    {
+        camTransform = Camera.main.transform;
+    }
 
     void Update()
     {
+        Vector2 scrollDelta = Input.mouseScrollDelta;
+        if (scrollDelta.magnitude > 0.05)
+        {
+            Camera.main.transform.position += camTransform.forward * (scrollDelta.y * ZoomSpeed * Time.deltaTime);
+        }
+
         float horizontal = Input.GetAxis("Horizontal");
-        Transform camTransform = Camera.main.transform;
 
         if (horizontal != 0)
         {
