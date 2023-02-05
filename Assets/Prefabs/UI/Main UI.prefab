@@ -1889,7 +1889,7 @@ MonoBehaviour:
 
     Controls:
 
-    - Left click to place the towers.
+    - Left click to place three towers.
 
     - Left click
     a placed tower to "select" it. Then left click again somewhere else on the map
