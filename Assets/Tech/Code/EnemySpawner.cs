@@ -45,11 +45,11 @@ public class EnemySpawner : MonoBehaviour
             break;
 
             case 4 or 5 or 6 or 7:
-                waveData = new Vector3(8, 15, 2);
+                waveData = new Vector3(8, 10, 2);
             break;
 
             case 8 or 9 or 10 or 11:
-                waveData = new Vector3(12, 18, 2);
+                waveData = new Vector3(10, 15, 2);
             break;
 
             case 12 or 13 or 14 or 15:

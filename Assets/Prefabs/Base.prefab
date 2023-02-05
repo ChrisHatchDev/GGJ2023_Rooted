@@ -298,7 +298,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 1.55
   m_Center: {x: 0, y: -0.25, z: 0}
 --- !u!1 &2100214999
 GameObject:
@@ -556,7 +556,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9431e3dc1b9834889a3f72d0f08c4ab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HasPower: 1
+  PowerSourceList: []
+  PowerSource: {fileID: 0}
   LineConnectionPoint: {fileID: 6139766424271910031}
   PowerType: 0
   MaxHealth: 1000
@@ -591,7 +592,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 0
-  m_Extents: {x: 1.25, y: 2.145, z: 1.25}
+  m_Extents: {x: 0.85, y: 2.145, z: 0.85}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
@@ -733,7 +734,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 765c51f10b46c904f836ebf29a0e27bc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.00034628838
+      value: 0.004
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 765c51f10b46c904f836ebf29a0e27bc,
         type: 3}
@@ -743,12 +744,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 765c51f10b46c904f836ebf29a0e27bc,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071067
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 765c51f10b46c904f836ebf29a0e27bc,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.7071068
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 765c51f10b46c904f836ebf29a0e27bc,
         type: 3}
@@ -763,7 +764,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 765c51f10b46c904f836ebf29a0e27bc,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 270
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 765c51f10b46c904f836ebf29a0e27bc,
         type: 3}
@@ -789,7 +790,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1042899123023392292, guid: d9999b81b2d4741f6a2c2823855f0a7a,
+      objectReference: {fileID: -3424687050171664086, guid: 8bd14968b071a4152bbb704a31e8cc38,
         type: 3}
     - target: {fileID: 919132149155446097, guid: 765c51f10b46c904f836ebf29a0e27bc,
         type: 3}

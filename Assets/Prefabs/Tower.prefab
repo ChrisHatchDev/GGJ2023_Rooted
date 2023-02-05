@@ -572,7 +572,7 @@ MonoBehaviour:
   NavObstacle: {fileID: 1216115330570760826}
   Moving: 0
   Renderer: {fileID: 8124354819763304239}
-  PoweredMat: {fileID: 2100000, guid: b3fa51cbf6d9c904f85b101febb8f1b9, type: 2}
+  PoweredMat: {fileID: 2100000, guid: 72b1d30d5817be541ab9061a1d7f5b0b, type: 2}
   NotPoweredMat: {fileID: 2100000, guid: c9eb18d80825f6a4e9e029ff89747654, type: 2}
   DamageRangeRenderer: {fileID: 1382853187292619421}
   PowerRangeRenderer: {fileID: 1382853188170611930}
@@ -1029,14 +1029,6 @@ PrefabInstance:
       propertyPath: OnEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 356193407890306561}
-    - target: {fileID: 1181492761, guid: a3ca08126770b4b45b560b6e08de349b, type: 3}
-      propertyPath: OnExit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnPowerSourceExit
-      objectReference: {fileID: 0}
-    - target: {fileID: 1181492761, guid: a3ca08126770b4b45b560b6e08de349b, type: 3}
-      propertyPath: OnEnter.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnPowerSourceEnter
-      objectReference: {fileID: 0}
     - target: {fileID: 2495992040346977364, guid: a3ca08126770b4b45b560b6e08de349b,
         type: 3}
       propertyPath: m_RootOrder
