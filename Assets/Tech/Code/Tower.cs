@@ -21,8 +21,6 @@ public class Tower : IPowerSource
     public int WeaponDamage = 5;
     public int NumEnemiesToShoot = 3;
     public TowerLineController LineController;
-    public Transform LineStartPoint;
-    public Transform LineEndPoint; // Should be the other tower
     public IPowerSource PowerSource;  // This should be a union between towers and bases because those will be the only power sources
     public Dictionary<GameObject, Tower> TowersInRange = new Dictionary<GameObject, Tower>();
 
@@ -65,10 +63,11 @@ public class Tower : IPowerSource
 
         StatusText.text = $"{statusText}\n{movingText}";
 
-        if (LineController)
-        {
-            LineController.SetLinePoints(LineStartPoint.transform.position, LineEndPoint.transform.position);
-        }
+        // if (LineController)
+        // {
+            Debug.Log("we drawing the line controller bruh");
+            LineController.SetLinePoints(transform.position, PowerSource.transform.position);
+        // }
     }
 
     private IEnumerator ShootCycle()
@@ -119,23 +118,6 @@ public class Tower : IPowerSource
         PowerSource = null;  // I'm not sure if this event means that the power has actually been cut off
         SetPowerStatusVisuals();
     }
-
-    // public void OnBasePowerEnter(Collider other)
-    // {
-    //     HasPower = true;
-    //     Base _base = other.gameObject.GetComponentInParent<Base>();
-    //     _base.AddTowerInRange(this);
-    //     SetPowerStatusVisuals();
-    // }
-
-    // public void OnBasePowerExit(Collider other)
-    // {
-    //     Base _base = other.gameObject.GetComponentInParent<Base>();
-    //     _base.RemoveTowerInRange(this);
-
-    //     HasPower = false;
-    //     SetPowerStatusVisuals();
-    // }
 
     public void AddTowerInRange(Tower tower)
     {
