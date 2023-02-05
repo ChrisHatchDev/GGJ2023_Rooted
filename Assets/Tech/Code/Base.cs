@@ -22,10 +22,8 @@ public class Base : IPowerSource
     public float Health = 1000;
     public Dictionary<GameObject, Tower> TowersInRange = new Dictionary<GameObject, Tower>();
     public int attack_damage = 5;
-
     public Image HealthbarFill;
     public List<LineRenderer> ListOfTowerLines;
-
     private void Start()
     {
         Health = MaxHealth;

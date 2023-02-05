@@ -8,31 +8,24 @@ using System.Linq;
 public class Tower : IPowerSource
 {
     public Animator Anim;
-
     public TMPro.TMP_Text StatusText;
-    public bool PoweredByTower = false;
-    public bool PoweredByBase = false;
-
     [Space(10)]
     public NavMeshAgent Agent;
     public NavMeshObstacle NavObstacle;
     public bool Moving = false;
-
     [Header("Material Logic")]
     public SkinnedMeshRenderer Renderer;
     public Material PoweredMat;
     public Material NotPoweredMat;
-
     public MeshRenderer DamageRangeRenderer;
     public MeshRenderer PowerRangeRenderer;
 
     public Dictionary<GameObject, Enemy> EnemiesInRange = new Dictionary<GameObject, Enemy>();
     public int WeaponDamage = 5;
     public int NumEnemiesToShoot = 3;
-    
     public TowerLineController LineController;
-    public Transform LineStartPoint;
-    public Transform LineEndPoint; // Should be the other tower
+    public IPowerSource PowerSource;
+    public Dictionary<GameObject, Tower> TowersInRange = new Dictionary<GameObject, Tower>();
     private bool _recentlyMoved;
 
     private void Start()
@@ -78,14 +71,15 @@ public class Tower : IPowerSource
 
     void Update()
     {
-        string statusText = (PoweredByTower || PoweredByBase) ? "POWERED" : "NOT POWRED";
+        string statusText = HasPower ? "POWERED" : "NOT POWRED";
         string movingText = Moving ? "Moving" : "Stationary";
 
         StatusText.text = $"{statusText}\n{movingText}";
 
-        if (LineController)
+        if (PowerSource)
         {
-            LineController.SetLinePoints(LineStartPoint.transform.position, LineEndPoint.transform.position);
+            Debug.Log("we have a valid powersource");
+            LineController.SetLinePoints(LineConnectionPoint.position, PowerSource.LineConnectionPoint.transform.position);
         }
 
         if (_recentlyMoved == false && Agent.enabled && Agent.remainingDistance < 0.1f)
@@ -124,8 +118,6 @@ public class Tower : IPowerSource
     {
         yield return new WaitForSeconds(0.5f);
         ShootAllEnemiesInRange();
-        //ShootNEnemiesInRange(NumEnemiesToShoot);
-        
         StartCoroutine(ShootCycle());
     }
 
@@ -138,54 +130,56 @@ public class Tower : IPowerSource
     }
     public void ShootAllEnemiesInRange()
     {
-        Anim.SetBool("Shooting", EnemiesInRange.Count > 0);
-        foreach (var enemeyPair in EnemiesInRange)
-        {
-            enemeyPair.Value.Damage(Random.Range(3,WeaponDamage));
+        if(HasPower){
+            Anim.SetBool("Shooting", EnemiesInRange.Count > 0);
+            foreach (var enemeyPair in EnemiesInRange)
+            {
+                enemeyPair.Value.Damage(Random.Range(3,WeaponDamage));
+            }
         }
     }
 
     public void SetPowerStatusVisuals()
     {
-        Renderer.materials = new Material[]{(PoweredByTower || PoweredByBase) ? PoweredMat : NotPoweredMat};
+        Renderer.materials = new Material[]{HasPower ? PoweredMat : NotPoweredMat};
     }
 
     public void SetPoweredByTower(bool poweredByTower, bool poweredByBase)
     {
-        Renderer.materials = new Material[]{(PoweredByTower || PoweredByBase) ? PoweredMat : NotPoweredMat};
-        PoweredByBase = poweredByBase;
-        PoweredByTower = poweredByTower;
+        Renderer.materials = new Material[]{HasPower ? PoweredMat : NotPoweredMat};
     }
 
-    public void OnTowerPowerEnter(Collider other)
+    public void OnPowerSourceEnter(Collider other)
     {
-        PoweredByTower = true;
+        Debug.Log("OnTowerPowerEnter");
+        PowerSource = other.gameObject.GetComponentInParent<IPowerSource>();
+        HasPower = PowerSource.HasPower;  // maybe this needs to be checked on update to handle when a child tower gets cutoff down the line
         SetPowerStatusVisuals();
     }
 
-    public void OnTowerPowerExit()
+    public void OnPowerSourceExit(Collider other)
     {
-        PoweredByTower = false;
+        Debug.Log("OnTowerPowerExit");
+        HasPower = false;  // maybe this should be set to PowerSource.HasPower but I'm really not sure what the move is here
+        PowerSource = null;  // I'm not sure if this event means that the power has actually been cut off
         SetPowerStatusVisuals();
     }
 
-    public void OnBasePowerEnter(Collider other)
+    public void AddTowerInRange(Tower tower)
     {
-        PoweredByBase = true;
-        Base _base = other.gameObject.GetComponentInParent<Base>();
-        _base.AddTowerInRange(this);
-        SetPowerStatusVisuals();
+        if (!TowersInRange.ContainsKey(tower.gameObject))
+        {
+            TowersInRange.TryAdd(tower.gameObject, tower);
+        }
     }
 
-    public void OnBasePowerExit(Collider other)
+    public void RemoveTowerInRange(Tower tower)
     {
-        Base _base = other.gameObject.GetComponentInParent<Base>();
-        _base.RemoveTowerInRange(this);
-
-        PoweredByBase = false;
-        SetPowerStatusVisuals();
+        if (TowersInRange.ContainsKey(tower.gameObject))
+        {
+            TowersInRange.Remove(tower.gameObject);
+        }
     }
-
     public override PowerSourceType GetPowerType()
     {
         return PowerType;

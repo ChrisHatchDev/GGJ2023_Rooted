@@ -8,6 +8,8 @@ public enum PowerSourceType
 
 public abstract class IPowerSource : MonoBehaviour
 {
+    public bool HasPower;
+    public Transform LineConnectionPoint;
     public PowerSourceType PowerType;
     public abstract PowerSourceType GetPowerType();
 }
