@@ -440,7 +440,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 8.42, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -562,7 +562,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20f61972ffbea4d8f8fd670d5eae7f41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HasPower: 0
+  PowerSourceList: []
+  PowerSource: {fileID: 0}
   LineConnectionPoint: {fileID: 8010042034948990038}
   PowerType: 1
   Anim: {fileID: 101701134}
@@ -578,7 +579,6 @@ MonoBehaviour:
   WeaponDamage: 5
   NumEnemiesToShoot: 3
   LineController: {fileID: 637200427283626353}
-  PowerSource: {fileID: 0}
   TorsoTransform: {fileID: 7659842624753647352}
   LookAtTarget: {fileID: 0}
   AudioThing: {fileID: 1549982417}
@@ -1029,6 +1029,14 @@ PrefabInstance:
       propertyPath: OnEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 356193407890306561}
+    - target: {fileID: 1181492761, guid: a3ca08126770b4b45b560b6e08de349b, type: 3}
+      propertyPath: OnExit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPowerSourceExit
+      objectReference: {fileID: 0}
+    - target: {fileID: 1181492761, guid: a3ca08126770b4b45b560b6e08de349b, type: 3}
+      propertyPath: OnEnter.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPowerSourceEnter
+      objectReference: {fileID: 0}
     - target: {fileID: 2495992040346977364, guid: a3ca08126770b4b45b560b6e08de349b,
         type: 3}
       propertyPath: m_RootOrder
@@ -1082,11 +1090,6 @@ PrefabInstance:
     - target: {fileID: 2495992040346977364, guid: a3ca08126770b4b45b560b6e08de349b,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3396928562600946102, guid: a3ca08126770b4b45b560b6e08de349b,
-        type: 3}
-      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3856456291937861009, guid: a3ca08126770b4b45b560b6e08de349b,

@@ -36,6 +36,7 @@ public class Tower : IPowerSource
     {
         StartCoroutine(ShootCycle());
         StartCoroutine(ShootSoundCycle());
+        StartCoroutine(CheckHasValidPowerEverySecond());
     }
 
     public void ShowDamageVisuals()
@@ -185,6 +186,26 @@ public class Tower : IPowerSource
     {
         Renderer.materials = new Material[]{PowerSource ? PoweredMat : NotPoweredMat};
     }
+
+
+    IEnumerator CheckHasValidPowerEverySecond()
+    {
+        yield return new WaitForSeconds(1);
+        
+        foreach(var ps in PowerSourceList)
+        {
+            if(ps is Base){
+                PowerSource = ps;
+            }
+            if(HasValidPower(ps, new List<IPowerSource>())){
+                PowerSource = ps;
+            }
+        }
+
+        StartCoroutine(CheckHasValidPowerEverySecond());
+    }
+
+
     bool HasValidPower(IPowerSource ps, List<IPowerSource> seen){
         if(ps == null){
             return false;
