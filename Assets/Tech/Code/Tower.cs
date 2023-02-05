@@ -198,6 +198,8 @@ public class Tower : IPowerSource
         {
             if(HasValidPower(ps, new List<IPowerSource>())){
                 PowerSource = ps;
+            }else{
+                PowerSource = null;
             }
         }
 
@@ -213,7 +215,6 @@ public class Tower : IPowerSource
             PowerSource = ps;
             return true;
         } else if(seen.Contains(ps)){
-            PowerSource = null;
             return false;
         }
         seen.Add(ps);
@@ -246,7 +247,9 @@ public class Tower : IPowerSource
         Debug.Log("OnTowerPowerExit");
         var otherPowerSource = other.gameObject.GetComponentInParent<IPowerSource>();
         PowerSourceList.Remove(otherPowerSource);
-        // PowerSource = null;
+        if(PowerSourceList.Count == 0){
+            PowerSource = null;
+        }
         foreach(var ps in PowerSourceList){
             if(ps is Base){
                 PowerSource = ps;
