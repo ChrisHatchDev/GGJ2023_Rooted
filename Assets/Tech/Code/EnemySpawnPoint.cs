@@ -24,7 +24,7 @@ public class EnemySpawnPoint : MonoBehaviour
     {
         activeWave.Clear();
 
-        for(int i=0; i<wave_size; i++)
+        for(int i=0; i < wave_size + Random.Range(0, 10); i++)
         {
             Enemy tmp = Instantiate(EnemyPrefab, transform.position, Quaternion.identity).GetComponent<Enemy>();
             tmp.Target = BaseBuilding;

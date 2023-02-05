@@ -26,6 +26,9 @@ public class Base : IPowerSource
     public int attack_damage = 5;
     public Image HealthbarFill;
     public List<LineRenderer> ListOfTowerLines;
+
+    public MeshRenderer PowerRangeVisuals;
+
     private void Start()
     {
         Health = MaxHealth;
@@ -67,6 +70,16 @@ public class Base : IPowerSource
         {
             TowersInRange.Remove(tower.gameObject);
         }
+    }
+
+    public void ShowPowerRangeVisuals()
+    {
+        PowerRangeVisuals.enabled = true;
+    }
+
+    public void HidePowerRangeVisuals()
+    {
+        PowerRangeVisuals.enabled = false;
     }
 
     public override PowerSourceType GetPowerType()

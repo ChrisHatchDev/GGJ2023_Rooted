@@ -28,7 +28,7 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnAtRandomPoint()
     {
-        if (waitingForWaveToDie)
+        if (waitingForWaveToDie || MainUI.GameIsActive == false)
         {
             return;
         }

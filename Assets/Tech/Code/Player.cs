@@ -61,6 +61,11 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (MainUI.GameIsActive == false)
+        {
+            return;
+        }
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
@@ -124,6 +129,13 @@ public class Player : MonoBehaviour
             TestPositionCube.SetActive(false);
             
             Debug.Log("Placed Turret");
+
+            // HIDE all power ranges when in NOT in pickup mode
+            foreach (var item in FindObjectsOfType<Tower>())
+            {
+                item.HidePowerRangeVisuals();
+            }
+            // BaseInScene.HidePowerRangeVisuals();
         }
         else
         {
@@ -136,6 +148,14 @@ public class Player : MonoBehaviour
         Debug.Log("PICKED UP TOWER");
         towerPickedUp = true;
         tower.OnPickUp();
+
+        // Show all power ranges when in pickup mode
+        foreach (var item in FindObjectsOfType<Tower>())
+        {
+            item.ShowPowerRangeVisuals();
+        }
+        // BaseInScene.ShowPowerRangeVisuals();
+
         TestPositionCube.SetActive(true);
     }
 }
