@@ -130,10 +130,12 @@ public class Tower : IPowerSource
     }
     public void ShootAllEnemiesInRange()
     {
-        Anim.SetBool("Shooting", EnemiesInRange.Count > 0);
-        foreach (var enemeyPair in EnemiesInRange)
-        {
-            enemeyPair.Value.Damage(Random.Range(3,WeaponDamage));
+        if(HasPower){
+            Anim.SetBool("Shooting", EnemiesInRange.Count > 0);
+            foreach (var enemeyPair in EnemiesInRange)
+            {
+                enemeyPair.Value.Damage(Random.Range(3,WeaponDamage));
+            }
         }
     }
 
