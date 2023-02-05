@@ -148,6 +148,14 @@ public class Tower : IPowerSource
         StartCoroutine(WaitToRenableAgent());
     }
 
+    public void OnCancelPlacement(Vector3 placedPos)
+    {
+        if (!Moving)
+        {
+            Anim.SetTrigger("Sit");
+        }
+    }
+
     IEnumerator WaitToRenableAgent()
     {
         yield return new WaitForSeconds(1.0f);

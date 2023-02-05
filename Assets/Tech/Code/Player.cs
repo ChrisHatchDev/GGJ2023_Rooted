@@ -117,6 +117,12 @@ public class Player : MonoBehaviour
                 }
             }
         }
+
+
+        if (Input.GetMouseButtonDown(1) && towerPickedUp && TargetTower)
+        {
+            CancelPlaceTower(TargetTower);
+        }
     }
 
     public void PlaceTower(Tower tower)
@@ -140,6 +146,22 @@ public class Player : MonoBehaviour
         else
         {
             Debug.Log("Can't place not on ground");
+        }
+    }
+
+    public void CancelPlaceTower(Tower tower)
+    {
+        Debug.Log("Cancelled Tower Placement");
+        TargetTower = null;
+        towerPickedUp = false;
+
+        tower.OnCancelPlacement(currentPointedPos);
+        
+        TestPositionCube.SetActive(false);
+        
+        foreach (var item in FindObjectsOfType<Tower>())
+        {
+            item.HidePowerRangeVisuals();
         }
     }
 
