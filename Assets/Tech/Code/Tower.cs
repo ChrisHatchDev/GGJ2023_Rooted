@@ -25,13 +25,15 @@ public class Tower : IPowerSource
     public int WeaponDamage = 5;
     public int NumEnemiesToShoot = 3;
     public TowerLineController LineController;
-    public Dictionary<GameObject, IPowerSource> PowerSourcesInRange = new Dictionary<GameObject, IPowerSource>();
     private bool _recentlyMoved;
 
     public Transform TorsoTransform;
     public Enemy LookAtTarget;
 
     public AudioSource AudioThing;
+
+    bool lineIsRendering = false;
+    IPowerSource currentLineTarget;
 
     private void Start()
     {
@@ -102,15 +104,16 @@ public class Tower : IPowerSource
 
         SetPowerStatusVisuals();
 
-        if (PowerSource)
+        if (currentLineTarget)
         {
-            Debug.Log("we have a valid powersource");
             LineController.Show();
-            LineController.SetLinePoints(LineConnectionPoint.position, PowerSource.LineConnectionPoint.transform.position);
+            LineController.SetLinePoints(LineConnectionPoint.position, currentLineTarget.LineConnectionPoint.transform.position);
         }
-        else
+        
+        if (PowerSourceList.Count == 0 || !PowerSourceList.Contains(currentLineTarget))
         {
             LineController.Hide();
+            currentLineTarget = null;
         }
 
         if (LookAtTarget && PowerSource && !Moving)
@@ -202,12 +205,17 @@ public class Tower : IPowerSource
 
     IEnumerator CheckHasValidPowerEverySecond()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.75f);
         
         foreach(var ps in PowerSourceList)
         {
             if(HasValidPower(ps, new List<IPowerSource>())){
                 PowerSource = ps;
+
+                if (!currentLineTarget)
+                {
+                    currentLineTarget = PowerSource;
+                }
             }else{
                 PowerSource = null;
             }
