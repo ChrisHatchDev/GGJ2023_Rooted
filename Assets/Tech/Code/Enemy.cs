@@ -62,7 +62,7 @@ public class Enemy : MonoBehaviour
     {
         if (other.tag == "BaseDamageRange")
         {
-            Debug.Log("ENEMY NEAR BASE");
+            // Debug.Log("ENEMY NEAR BASE");
             Target.Damage(this.attack_damage);
             inRange = true;
         }
@@ -90,7 +90,7 @@ public class Enemy : MonoBehaviour
     }
     public void Damage(int damage)
     {
-        Debug.Log("Enemy Taking Damage");
+        // Debug.Log("Enemy Taking Damage");
         Health -= damage;
     }
 }
